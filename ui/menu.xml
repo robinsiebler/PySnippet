@@ -1,80 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <menu id="menubar">
-    <submenu>
-      <attribute name="label">File</attribute>
-      <section>
-        <item>
-          <attribute name="label">New</attribute>
-          <attribute name="action">app.new</attribute>
-        </item>
-        <item>
-          <attribute name="label">Quit</attribute>
-          <attribute name="action">app.quit</attribute>
-        </item>
-      </section>
-    </submenu>
-    <submenu>
-      <attribute name="label">Edit</attribute>
-      <section>
-        <item>
-          <attribute name="label">Copy</attribute>
-          <attribute name="action">win.copy</attribute>
-        </item>
-        <item>
-          <attribute name="label">Paste</attribute>
-          <attribute name="action">win.paste</attribute>
-        </item>
-      </section>
-    </submenu>
-    <submenu>
-      <attribute name="label">Help</attribute>
-      <section>
-        <item>
-          <attribute name="label">About</attribute>
-          <attribute name="action">win.about</attribute>
-        </item>
-      </section>
-    </submenu>
-  </menu>
-</interface>
-
-
-
-
-
-
-
-
-
-<!--
-<?xml version="1.0" encoding="UTF-8"?>
-<interface>
-  <menubar name='MenuBar'>
-    <menu action='FileMenu'>
-      <menu action='FileNew'>
-        <menuitem action='FileNewDatabase'/>
-        <menuitem action='FileNewCategory'/>
-        <menuitem action='FileNewSnippet'/>
-      </menu>
-      <separator />
-      <menuitem action='FileQuit'/>
+    <menu id="menubar">
+        <submenu>
+            <attribute name="label">File</attribute>
+            <section>
+                <submenu>
+                    <attribute name="label">New</attribute>
+                    <section>
+                        <item>
+                            <attribute name="label">Database</attribute>
+                            <attribute name="action">win.new_db</attribute>
+                        </item>
+                        <item>
+                            <attribute name="label">Category</attribute>
+                            <attribute name="action">win.new_cat</attribute>
+                        </item>
+                        <item>
+                            <attribute name="label">Snippet</attribute>
+                            <attribute name="action">win.new_snip</attribute>
+                        </item>
+                    </section>
+                </submenu>
+                <item>
+                    <attribute name="label">Quit</attribute>
+                    <attribute name="action">app.quit</attribute>
+                </item>
+            </section>
+        </submenu>
+        <submenu>
+            <attribute name="label">Edit</attribute>
+            <section>
+                <item>
+                    <attribute name="label">Copy</attribute>
+                    <attribute name="action">win.copy</attribute>
+                </item>
+                <item>
+                    <attribute name="label">Paste</attribute>
+                    <attribute name="action">win.paste</attribute>
+                </item>
+            </section>
+        </submenu>
+        <submenu>
+            <attribute name="label">Help</attribute>
+            <section>
+                <item>
+                    <attribute name="label">About</attribute>
+                    <attribute name="action">win.about</attribute>
+                </item>
+            </section>
+        </submenu>
     </menu>
-    <menu action='EditMenu'>
-      <menuitem action='EditCopy'/>
-      <menuitem action='EditPaste'/>
-      <menuitem action='EditSomething'/>
-    </menu>
-  </menubar>
-  <toolbar name='ToolBar'>
-    <toolitem action='FileNewCategory'/>
-    <toolitem action='FileNewSnippet'/>
-    <toolitem action='FileQuit'/>
-  </toolbar>
-  <popup name='PopupMenu'>
-    <menuitem action='EditCopy'/>
-    <menuitem action='EditPaste'/>
-    <menuitem action='EditSomething'/>
-  </popup>
 </interface>
--->

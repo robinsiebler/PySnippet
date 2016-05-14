@@ -13,6 +13,21 @@
     <property name="can_focus">False</property>
     <property name="pixbuf">icons\folder_add.png</property>
   </object>
+  <object class="GtkImage" id="search">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="pixbuf">icons\system-search-4.png</property>
+  </object>
+  <object class="GtkImage" id="snippet_delete">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="pixbuf">icons\page_white_delete.png</property>
+  </object>
+  <object class="GtkImage" id="snippet_new">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="pixbuf">icons\document-new-6.png</property>
+  </object>
   <object class="GtkGrid" id="grid1">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -168,6 +183,7 @@
               <object class="GtkBox" id="snippet_box">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="margin_right">2</property>
                 <property name="orientation">vertical</property>
                 <property name="homogeneous">True</property>
                 <child>
@@ -262,20 +278,5 @@
         <property name="top_attach">0</property>
       </packing>
     </child>
-  </object>
-  <object class="GtkImage" id="search">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="pixbuf">icons\system-search-4.png</property>
-  </object>
-  <object class="GtkImage" id="snippet_delete">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="pixbuf">icons\page_white_delete.png</property>
-  </object>
-  <object class="GtkImage" id="snippet_new">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="pixbuf">icons\document-new-6.png</property>
   </object>
 </interface>

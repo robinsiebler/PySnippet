@@ -1,3 +1,10 @@
+# TODO: Get CSS Styling to work!
+# TODO: Fix window resize issue!
+# TODO: Create the following dialogs: Advanced Search, New Database, Create/Edit Snippet, Create/Delete Category
+# TODO: Write code for menu items/toolbar buttons
+# TODO: Write code to load/read settings
+
+
 import gi
 import sys
 
@@ -5,13 +12,34 @@ gi.require_version('Gdk', '3.0')
 gi.require_version('Gtk', '3.0')
 gi.require_version('WebKit', '3.0')
 
-from gi.repository import Gio, Gtk, WebKit
+from gi.repository import Gdk, Gio, Gtk, WebKit
 
 
 class MyWindow(Gtk.ApplicationWindow):
 	def __init__(self, app):
 		Gtk.Window.__init__(self, title="PySnippet Manager", application=app)
 		self.set_default_size(800, 600)
+
+		# action without a state created (name, parameter type)
+		new_db_action = Gio.SimpleAction.new("new_db", None)
+		# connected with the callback function
+		new_db_action.connect("activate", self.new_db_callback)
+		# added to the window
+		self.add_action(new_db_action)
+
+		# action without a state created (name, parameter type)
+		new_cat_action = Gio.SimpleAction.new("new_cat", None)
+		# connected with the callback function
+		new_cat_action.connect("activate", self.new_cat_callback)
+		# added to the window
+		self.add_action(new_cat_action)
+
+		# action without a state created (name, parameter type)
+		new_snip_action = Gio.SimpleAction.new("new_snip", None)
+		# connected with the callback function
+		new_snip_action.connect("activate", self.new_snip_callback)
+		# added to the window
+		self.add_action(new_snip_action)
 
 		# action without a state created (name, parameter type)
 		copy_action = Gio.SimpleAction.new("copy", None)
@@ -34,6 +62,13 @@ class MyWindow(Gtk.ApplicationWindow):
 		# action added to the application
 		self.add_action(about_action)
 
+		screen = Gdk.Screen.get_default()
+		css_provider = Gtk.CssProvider()
+		css_provider.load_from_path('style.css')
+		context = Gtk.StyleContext()
+		context.add_provider_for_screen(screen, css_provider,
+		                                Gtk.STYLE_PROVIDER_PRIORITY_USER)
+
 		builder = Gtk.Builder()
 		builder.add_from_file(r'ui\gui.glade')
 		self.add(builder.get_object('grid1'))
@@ -42,21 +77,34 @@ class MyWindow(Gtk.ApplicationWindow):
 		self.editor.set_editable(True)
 		self.snippet_box.add(self.editor)
 		self.editor.load_html_string('This is a test', "file:///")
-
 		self.set_position(Gtk.WindowPosition.CENTER)
 
+		screen = Gdk.Screen.get_default()
+		css_provider = Gtk.CssProvider()
+		css_provider.load_from_path('k:\scripts\Python\Practice\PySnippets\style.css')
+		context = Gtk.StyleContext()
+		context.add_provider_for_screen(screen, css_provider,
+		                                Gtk.STYLE_PROVIDER_PRIORITY_USER)
 
+	# callback function for copy_action
+	def new_db_callback(self, action, parameter):
+		print("\"New Database\" activated")
 
+	# callback function for copy_action
+	def new_cat_callback(self, action, parameter):
+		print("\"New Category\" activated")
+
+	# callback function for copy_action
+	def new_snip_callback(self, action, parameter):
+		print("\"New Snippet\" activated")
 
 	# callback function for copy_action
 	def copy_callback(self, action, parameter):
 		print("\"Copy\" activated")
 
-
 	# callback function for paste_action
 	def paste_callback(self, action, parameter):
 		print("\"Paste\" activated")
-
 
 	# callback function for about (see the AboutDialog example)
 	def about_callback(self, action, parameter):
@@ -84,7 +132,6 @@ class MyWindow(Gtk.ApplicationWindow):
 		aboutdialog.set_position(Gtk.WindowPosition.CENTER)
 		aboutdialog.show()
 
-
 	# a callback function to destroy the aboutdialog
 	def on_close(self, action, parameter):
 		action.destroy()
@@ -102,12 +149,12 @@ class MyApplication(Gtk.Application):
 		# FIRST THING TO DO: do_startup()
 		Gtk.Application.do_startup(self)
 
-		# action without a state created
-		new_action = Gio.SimpleAction.new("new", None)
-		# action connected to the callback function
-		new_action.connect("activate", self.new_callback)
-		# action added to the application
-		self.add_action(new_action)
+		# # action without a state created
+		# new_action = Gio.SimpleAction.new("new", None)
+		# # action connected to the callback function
+		# new_action.connect("activate", self.new_callback)
+		# # action added to the application
+		# self.add_action(new_action)
 
 		# action without a state created
 		quit_action = Gio.SimpleAction.new("quit", None)
@@ -138,6 +185,3 @@ class MyApplication(Gtk.Application):
 	def quit_callback(self, action, parameter):
 		print("You clicked \"Quit\"")
 		sys.exit()
-
-
-

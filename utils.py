@@ -1,14 +1,17 @@
 import os
-import sqlite3
 
 from ConfigParser import ConfigParser
 from pygments import highlight
-from pygments.lexers import PythonLexer
-from pygments.formatters import HtmlFormatter
+from pygments.lexers.python import PythonLexer
+from pygments.formatters.html import HtmlFormatter
 
 
-def create_database(directory):
-	print 'We are here!'
+def create_db_path(directory):
+	"""Create a new database for snippets.
+
+	:param str directory:   Directory to create the file in
+	"""
+
 	try:
 		if not os.path.exists(directory):
 			os.mkdir(directory)
@@ -16,8 +19,16 @@ def create_database(directory):
 		print 'ERROR! Unable to create the folder: ' + directory
 		return False
 
+	return True
 
-def get_database():
+
+def read_database_setting():
+	"""Read the database setting from the INI file (if they exist).
+
+	:return:    The database path or None if it does not exist.
+	:rtype: str
+	"""
+
 	config_file = os.path.join(os.getcwd(), 'psm.ini')
 	if os.path.exists(config_file):
 		database = get_settings('Database', config_file)
