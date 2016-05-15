@@ -3,9 +3,12 @@
 # TODO: Create the following dialogs: Advanced Search, New Database, Create/Edit Snippet, Create/Delete Category
 # TODO: Write code for menu items/toolbar buttons
 # TODO: Write code to load/read settings
+# TODO: Add logging
 
 
 import gi
+import os
+import utils
 import sys
 
 gi.require_version('Gdk', '3.0')
@@ -14,6 +17,8 @@ gi.require_version('WebKit', '3.0')
 
 from gi.repository import Gdk, Gio, Gtk, WebKit
 
+config_file = os.path.join(os.getcwd(), 'psm.ini')
+database = utils.get_db_file(config_file)
 
 class MyWindow(Gtk.ApplicationWindow):
 	def __init__(self, app):
@@ -81,7 +86,7 @@ class MyWindow(Gtk.ApplicationWindow):
 
 		screen = Gdk.Screen.get_default()
 		css_provider = Gtk.CssProvider()
-		css_provider.load_from_path('k:\scripts\Python\Practice\PySnippets\style.css')
+		css_provider.load_from_path('style.css')
 		context = Gtk.StyleContext()
 		context.add_provider_for_screen(screen, css_provider,
 		                                Gtk.STYLE_PROVIDER_PRIORITY_USER)
