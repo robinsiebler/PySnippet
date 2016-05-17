@@ -30,7 +30,6 @@ def get_db_file(config_file):
 		else:
 			return db
 
-	print 'Creating default database.'
 	db = os.path.join(os.getcwd(), 'snippets.sqlite')
 
 	return db

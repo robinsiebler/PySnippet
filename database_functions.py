@@ -47,8 +47,23 @@ def create_table():
 	db.close()
 
 
+def delete_snippet(snippet_name, data_dict):
+	"""Delete a snippet.
+
+	:param str snippet_name:    The name of the snippet to delete
+	:param dict data_dict:  A dict containing all of the fields for a snippet
+	"""
+
+	db.connect()
+
+	snippet = Snippet.get(Snippet.name == snippet_name)
+	snippet.delete_instance()
+
+	db.close()
+
+
 def update_snippet(snippet_name, data_dict):
-	"""Update and already existing snippet.
+	"""Update an already existing snippet.
 
 	:param str snippet_name:    The name of the snippet to update
 	:param dict data_dict:  A dict containing all of the fields for a snippet
@@ -71,6 +86,7 @@ def update_snippet(snippet_name, data_dict):
 
 
 if __name__ == '__main__':
+	# TODO: Add unit tests
 	create_table()
 	data_dict = {'name': 'Create Database',
 	             'category': 'Database Functions',
