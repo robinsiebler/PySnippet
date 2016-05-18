@@ -1,7 +1,6 @@
-from app import database
 from peewee import *
 
-db = SqliteDatabase(database)
+db = SqliteDatabase(None)
 
 
 class Snippet(Model):

@@ -6,22 +6,6 @@ from pygments.lexers.python import PythonLexer
 from pygments.formatters.html import HtmlFormatter
 
 
-def create_db_path(directory):
-	"""Create a new database for snippets.
-
-	:param str directory:   Directory to create the file in
-	"""
-
-	try:
-		if not os.path.exists(directory):
-			os.mkdir(directory)
-	except WindowsError:
-		print 'ERROR! Unable to create the folder: ' + directory
-		return False
-
-	return True
-
-
 def get_db_file(config_file):
 	db = read_db_setting(config_file)
 	if db:

@@ -2,7 +2,19 @@
 <!-- Generated with glade 3.18.3 -->
 <interface>
   <requires lib="gtk+" version="3.12"/>
+  <object class="GtkAction" id="adv_search">
+    <property name="label" translatable="yes">Advanced Search</property>
+    <signal name="activate" handler="adv_search_callback" swapped="no"/>
+  </object>
   <object class="GtkListStore" id="category_liststore"/>
+  <object class="GtkAction" id="del_cat">
+    <property name="label" translatable="yes">Delete Category</property>
+    <signal name="activate" handler="del_cat_callback" swapped="no"/>
+  </object>
+  <object class="GtkAction" id="del_snip">
+    <property name="label" translatable="yes">Delete Snippet</property>
+    <signal name="activate" handler="del_snip_callback" swapped="no"/>
+  </object>
   <object class="GtkImage" id="folder_delete">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -52,10 +64,11 @@
                 <property name="toolbar_style">both</property>
                 <property name="icon_size">2</property>
                 <child>
-                  <object class="GtkToolButton" id="btn_new_category">
+                  <object class="GtkToolButton" id="New Category">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="tooltip_text" translatable="yes">Add a New Category</property>
+                    <property name="action_name">win.new_cat</property>
                     <property name="label" translatable="yes">New Category</property>
                     <property name="use_underline">True</property>
                     <property name="icon_widget">folder_new</property>
@@ -66,7 +79,8 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkToolButton" id="btn_delete_category">
+                  <object class="GtkToolButton" id="Delete Category">
+                    <property name="related_action">del_cat</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="tooltip_text" translatable="yes">Remove the selected category</property>
@@ -87,6 +101,7 @@
                     <property name="label" translatable="yes">New Snippet</property>
                     <property name="use_underline">True</property>
                     <property name="icon_widget">snippet_new</property>
+                    <signal name="clicked" handler="new_snip_callback" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -95,6 +110,7 @@
                 </child>
                 <child>
                   <object class="GtkToolButton" id="Delete Snippet">
+                    <property name="related_action">del_snip</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="tooltip_text" translatable="yes">Delete Snippet</property>
@@ -119,6 +135,7 @@
                 </child>
                 <child>
                   <object class="GtkToolButton" id="Search">
+                    <property name="related_action">adv_search</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="tooltip_text" translatable="yes">Advanced Search</property>

@@ -24,6 +24,7 @@ class MyWindow(Gtk.ApplicationWindow):
 	def __init__(self, app):
 		Gtk.Window.__init__(self, title="PySnippet Manager", application=app)
 		self.set_default_size(800, 600)
+		self.db_folder = None
 
 		# action without a state created (name, parameter type)
 		new_db_action = Gio.SimpleAction.new("new_db", None)
@@ -76,6 +77,7 @@ class MyWindow(Gtk.ApplicationWindow):
 
 		builder = Gtk.Builder()
 		builder.add_from_file(r'ui\gui.glade')
+		builder.connect_signals(self)
 		self.add(builder.get_object('grid1'))
 		self.snippet_box = builder.get_object('snippet_box')
 		self.editor = WebKit.WebView()
@@ -91,28 +93,62 @@ class MyWindow(Gtk.ApplicationWindow):
 		context.add_provider_for_screen(screen, css_provider,
 		                                Gtk.STYLE_PROVIDER_PRIORITY_USER)
 
-	# callback function for copy_action
-	def new_db_callback(self, action, parameter):
-		print("\"New Database\" activated")
+	# callback function for new_db_action
+	def new_db_callback(self, action, parameter=None):
+		dialog = Gtk.FileChooserDialog("Please choose a name and location for the database file", self,
+		                               Gtk.FileChooserAction.SAVE,
+		                               ("Select", Gtk.ResponseType.OK,
+		                                Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL))
+		dialog.set_default_response(Gtk.ResponseType.OK)
+		dialog.set_current_name('snippets.sqlite')
+		filter = Gtk.FileFilter()
+		filter.set_name("Database Files")
+		filter.add_pattern("*.sqlite")
+		filter.add_mime_type('application/x-sqlite3')
+		dialog.add_filter(filter)
+		dialog.set_transient_for(self)
+		dialog.set_modal(True)
+		response = dialog.run()
+		if response == Gtk.ResponseType.OK:
+			self.db_folder = dialog.get_filename()
+			self.editor.load_html_string(self.db_folder, "file:///")
 
-	# callback function for copy_action
-	def new_cat_callback(self, action, parameter):
+		dialog.destroy()
+
+	# callback function for del_db_action
+	def del_db_callback(self, action, parameter=None):
+		print("\"Delete Database\" activated")
+
+	# callback function for new_cat_action
+	def new_cat_callback(self, action, parameter=None):
 		print("\"New Category\" activated")
 
-	# callback function for copy_action
-	def new_snip_callback(self, action, parameter):
+	# callback function for del_cat_action
+	def del_cat_callback(self, action, parameter=None):
+		print("\"Delete Category\" activated")
+
+	# callback function for new_snip_action
+	def new_snip_callback(self, action, parameter=None):
 		print("\"New Snippet\" activated")
 
+	# callback function for del_snip_action
+	def del_snip_callback(self, action, parameter=None):
+		print("\"Delete Snippet\" activated")
+
+	# callback function for advanced_search_action
+	def adv_search_callback(self, action, parameter=None):
+		print("\"Advanced Search\" activated")
+
 	# callback function for copy_action
-	def copy_callback(self, action, parameter):
+	def copy_callback(self, action, parameter=None):
 		print("\"Copy\" activated")
 
 	# callback function for paste_action
-	def paste_callback(self, action, parameter):
+	def paste_callback(self, action, parameter=None):
 		print("\"Paste\" activated")
 
 	# callback function for about (see the AboutDialog example)
-	def about_callback(self, action, parameter):
+	def about_callback(self, action, parameter=None):
 		# a  Gtk.AboutDialog
 		aboutdialog = Gtk.AboutDialog()
 
@@ -154,13 +190,6 @@ class MyApplication(Gtk.Application):
 		# FIRST THING TO DO: do_startup()
 		Gtk.Application.do_startup(self)
 
-		# # action without a state created
-		# new_action = Gio.SimpleAction.new("new", None)
-		# # action connected to the callback function
-		# new_action.connect("activate", self.new_callback)
-		# # action added to the application
-		# self.add_action(new_action)
-
 		# action without a state created
 		quit_action = Gio.SimpleAction.new("quit", None)
 		# action connected to the callback function
@@ -168,7 +197,7 @@ class MyApplication(Gtk.Application):
 		# action added to the application
 		self.add_action(quit_action)
 
-		# a builder to add the UI designed with Glade to the grid:
+		# a builder to add the menu to the grid:
 		builder = Gtk.Builder()
 		# get the file (if it is there)
 		try:
