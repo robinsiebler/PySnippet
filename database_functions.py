@@ -1,3 +1,5 @@
+# TODO: Create function to read database
+
 from peewee import *
 
 db = SqliteDatabase(None)

@@ -1,19 +1,28 @@
+# TODO: Add unit tests
+
 import os
 
-from ConfigParser import ConfigParser
+from configobj import ConfigObj
 from pygments import highlight
 from pygments.lexers.python import PythonLexer
 from pygments.formatters.html import HtmlFormatter
 
 
 def get_db_file(config_file):
+	"""Return the full path to the database file.
+
+	:param str config_file:     The full path to the config file
+	:return:                    The full path to the database file
+	:rtype: str
+	"""
+
 	db = read_db_setting(config_file)
 	if db:
 		if not os.path.exists(db):
 			print 'ERROR: The database file ' + db + ' does not exist'
 		else:
 			return db
-
+	# if the
 	db = os.path.join(os.getcwd(), 'snippets.sqlite')
 
 	return db
@@ -26,10 +35,12 @@ def read_db_setting(config_file):
 	:rtype: str
 	"""
 
+	database = None
 	if os.path.exists(config_file):
-		database = get_settings('Database', config_file)
-	else:
-		return None
+		try:
+			database = get_settings('General', config_file)['database']
+		except KeyError:
+			print("exception on %s!" % 'database')
 
 	return database
 
@@ -43,17 +54,15 @@ def get_settings(section, config_file):
 	:rtype: dict
 	"""
 
-	config = ConfigParser()
-	config.read(config_file)
+	settings = {}
+	config = ConfigObj(config_file)
 
-	dict1 = {}
-	options = config.options(section)
-	for option in options:
-		try:
-			dict1[option] = config.get(section, option)
-			if dict1[option] == -1:
-				print("skip: %s" % option)
-		except:
-			print("exception on %s!" % option)
-			dict1[option] = None
-	return dict1
+
+	try:
+		settings = config[section]
+	except KeyError:
+		print("exception on %s!" % section)
+		settings = None
+	return settings
+
+

@@ -3,6 +3,7 @@
 # TODO: Create the following dialogs: Advanced Search, New Database, Create/Edit Snippet, Create/Delete Category
 # TODO: Write code for menu items/toolbar buttons
 # TODO: Write code to load/read settings
+# TODO: Write code to load database into controls
 # TODO: Add logging
 
 
@@ -24,7 +25,7 @@ class MyWindow(Gtk.ApplicationWindow):
 	def __init__(self, app):
 		Gtk.Window.__init__(self, title="PySnippet Manager", application=app)
 		self.set_default_size(800, 600)
-		self.db_folder = None
+		self.db_file = None
 
 		# action without a state created (name, parameter type)
 		new_db_action = Gio.SimpleAction.new("new_db", None)
@@ -110,8 +111,8 @@ class MyWindow(Gtk.ApplicationWindow):
 		dialog.set_modal(True)
 		response = dialog.run()
 		if response == Gtk.ResponseType.OK:
-			self.db_folder = dialog.get_filename()
-			self.editor.load_html_string(self.db_folder, "file:///")
+			self.db_file = dialog.get_filename()
+			self.editor.load_html_string(self.db_file, "file:///")
 
 		dialog.destroy()
 
