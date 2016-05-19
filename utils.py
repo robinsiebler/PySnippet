@@ -57,12 +57,9 @@ def get_settings(section, config_file):
 	settings = {}
 	config = ConfigObj(config_file)
 
-
 	try:
 		settings = config[section]
 	except KeyError:
 		print("exception on %s!" % section)
 		settings = None
 	return settings
-
-

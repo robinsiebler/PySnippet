@@ -1,5 +1,6 @@
 # TODO: Create function to read database
 # TODO: Add unit tests
+# TODO: Add error handling for database access: init, open, close, etc.
 
 from peewee import *
 from sortedcontainers import SortedDict

@@ -7,6 +7,7 @@
 # TODO: Add logging
 
 
+import database_functions as db_func
 import gi
 import os
 import utils
@@ -21,11 +22,13 @@ from gi.repository import Gdk, Gio, Gtk, WebKit
 config_file = os.path.join(os.getcwd(), 'psm.ini')
 database = utils.get_db_file(config_file)
 
+
 class MyWindow(Gtk.ApplicationWindow):
 	def __init__(self, app):
 		Gtk.Window.__init__(self, title="PySnippet Manager", application=app)
 		self.set_default_size(800, 600)
 		self.db_file = utils.get_db_file(config_file)
+		self.db_contents = db_func.read_db(self.db_file)
 
 		# action without a state created (name, parameter type)
 		new_db_action = Gio.SimpleAction.new("new_db", None)
@@ -69,30 +72,33 @@ class MyWindow(Gtk.ApplicationWindow):
 		# action added to the application
 		self.add_action(about_action)
 
-		screen = Gdk.Screen.get_default()
-		css_provider = Gtk.CssProvider()
-		css_provider.load_from_path('style.css')
-		context = Gtk.StyleContext()
-		context.add_provider_for_screen(screen, css_provider,
-		                                Gtk.STYLE_PROVIDER_PRIORITY_USER)
+		# screen = Gdk.Screen.get_default()
+		# css_provider = Gtk.CssProvider()
+		# css_provider.load_from_path('style.css')
+		# context = Gtk.StyleContext()
+		# context.add_provider_for_screen(screen, css_provider,
+		#                                 Gtk.STYLE_PROVIDER_PRIORITY_USER)
 
 		builder = Gtk.Builder()
 		builder.add_from_file(r'ui\gui.glade')
 		builder.connect_signals(self)
 		self.add(builder.get_object('grid1'))
+		self.tree = builder.get_object('category_treeview')
+		self.tree_store = builder.get_object('treestore1')
 		self.snippet_box = builder.get_object('snippet_box')
 		self.editor = WebKit.WebView()
 		self.editor.set_editable(True)
 		self.snippet_box.add(self.editor)
-		self.editor.load_html_string(self.db_file, "file:///")
+		# self.editor.load_html_string(self.db_file, "file:///") #example load string
 		self.set_position(Gtk.WindowPosition.CENTER)
 
-		screen = Gdk.Screen.get_default()
-		css_provider = Gtk.CssProvider()
-		css_provider.load_from_path('style.css')
-		context = Gtk.StyleContext()
-		context.add_provider_for_screen(screen, css_provider,
-		                                Gtk.STYLE_PROVIDER_PRIORITY_USER)
+		main_column = Gtk.TreeViewColumn()
+		main_column.set_title("Snippets")
+		cell = Gtk.CellRendererText()
+		main_column.pack_start(cell, True)
+		main_column.add_attribute(cell, "text", 0)
+		self.populate_treeview()
+		self.tree.append_column(main_column)
 
 	# callback function for new_db_action
 	def new_db_callback(self, action, parameter=None):
@@ -112,7 +118,6 @@ class MyWindow(Gtk.ApplicationWindow):
 		response = dialog.run()
 		if response == Gtk.ResponseType.OK:
 			self.db_file = dialog.get_filename()
-			self.editor.load_html_string(self.db_file, "file:///")
 
 		dialog.destroy()
 
@@ -177,6 +182,13 @@ class MyWindow(Gtk.ApplicationWindow):
 	# a callback function to destroy the aboutdialog
 	def on_close(self, action, parameter):
 		action.destroy()
+
+	def populate_treeview(self):
+
+		for category in self.db_contents:
+			it = self.tree_store.append(None, [category])
+			for item in self.db_contents[category]:
+				self.tree_store.append(it, [item])
 
 
 class MyApplication(Gtk.Application):
