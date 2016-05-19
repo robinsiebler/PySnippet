@@ -1,6 +1,6 @@
 # TODO: Get CSS Styling to work!
 # TODO: Fix window resize issue!
-# TODO: Create the following dialogs: Advanced Search, New Database, Create/Edit Snippet, Create/Delete Category
+# TODO: Create the following dialogs: Advanced Search, Create/Edit Snippet, Create/Delete Category
 # TODO: Write code for menu items/toolbar buttons
 # TODO: Write code to load/read settings
 # TODO: Write code to load database into controls
@@ -25,7 +25,7 @@ class MyWindow(Gtk.ApplicationWindow):
 	def __init__(self, app):
 		Gtk.Window.__init__(self, title="PySnippet Manager", application=app)
 		self.set_default_size(800, 600)
-		self.db_file = None
+		self.db_file = utils.get_db_file(config_file)
 
 		# action without a state created (name, parameter type)
 		new_db_action = Gio.SimpleAction.new("new_db", None)
@@ -84,7 +84,7 @@ class MyWindow(Gtk.ApplicationWindow):
 		self.editor = WebKit.WebView()
 		self.editor.set_editable(True)
 		self.snippet_box.add(self.editor)
-		self.editor.load_html_string('This is a test', "file:///")
+		self.editor.load_html_string(self.db_file, "file:///")
 		self.set_position(Gtk.WindowPosition.CENTER)
 
 		screen = Gdk.Screen.get_default()

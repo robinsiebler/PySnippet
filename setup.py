@@ -13,5 +13,6 @@ setup(
 		'configobj>=5.0.6'
 		'Logbook>=0.12.5',
 		'peewee>=2.8.1',
-		'Pygments>=2.1.3']
+		'Pygments>=2.1.3',
+		'sortedcontainers>=1.4.4']
 )

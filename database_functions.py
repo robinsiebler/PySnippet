@@ -1,6 +1,8 @@
 # TODO: Create function to read database
+# TODO: Add unit tests
 
 from peewee import *
+from sortedcontainers import SortedDict
 
 db = SqliteDatabase(None)
 
@@ -63,6 +65,37 @@ def delete_snippet(snippet_name, data_dict):
 	db.close()
 
 
+def read_db(database_file):
+	"""Read the contents of the specified database.
+
+	:param str database_file:  The full path to the database
+	:return:                   A SortedDict
+	:rtype: SortedDict
+	"""
+	snippet_dict = SortedDict()
+
+	db.init(database_file)
+	db.connect()
+
+	for snippet in Snippet.select().order_by('category'):
+		if snippet.category not in snippet_dict:
+			snippet_list = [snippet.category, snippet.language, snippet.tags,
+			                snippet.notes, snippet.plain_text, snippet.syntax_text]
+			temp_dict = SortedDict()
+			temp_dict[snippet.name] = snippet_list
+			snippet_dict[snippet.category] = temp_dict
+		else:
+			snippet_list = [snippet.category, snippet.language, snippet.tags,
+			                snippet.notes, snippet.plain_text, snippet.syntax_text]
+			temp_dict = SortedDict()
+			temp_dict[snippet.name] = snippet_list
+			snippet_dict[snippet.category].update(temp_dict)
+
+	db.close()
+
+	return snippet_dict
+
+
 def update_snippet(snippet_name, data_dict):
 	"""Update an already existing snippet.
 
@@ -87,20 +120,20 @@ def update_snippet(snippet_name, data_dict):
 
 
 if __name__ == '__main__':
-	# TODO: Add unit tests
-	create_table()
-	data_dict = {'name': 'Create Database',
-	             'category': 'Database Functions',
-	             'language': 'Python',
-	             'tags': 'test',
-	             'notes': 'Foo',
-	             'plain_text': """
- def create_db():
-	db.connect()
-	try:
-		Snippet.create_table()
-	except OperationalError:
-		print 'Snippets table already exists!'""",
-	             'syntax_text': 'Foo'
-	             }
-	update_snippet('Create Database', data_dict)
+	# create_table()
+	# data_dict = {'name': 'Create Database',
+	#              'category': 'Database Functions',
+	#              'language': 'Python',
+	#              'tags': 'test',
+	#              'notes': 'Foo',
+	#              'plain_text': """
+ # def create_db():
+	# db.connect()
+	# try:
+	# 	Snippet.create_table()
+	# except OperationalError:
+	# 	print 'Snippets table already exists!'""",
+	#              'syntax_text': 'Foo'
+	#              }
+	# update_snippet('Create Database', data_dict)
+	foo = read_db('snippets.sqlite')
