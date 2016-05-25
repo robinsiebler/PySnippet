@@ -84,6 +84,14 @@ class MyWindow(Gtk.ApplicationWindow):
 		builder.add_from_file(r'ui\gui.glade')
 		builder.connect_signals(self)
 		self.add(builder.get_object('grid1'))
+		self.new_cat = builder.get_object('New Category')
+		self.del_cat = builder.get_object('Delete Category')
+		self.new_snip = builder.get_object('New Snippet')
+		self.del_snip = builder.get_object('Delete Snippet')
+		self.adv_search = builder.get_object('Advanced Search')
+		self.search = builder.get_object('Search')
+		self.snip_new_icon = builder.get_object('snippet_new')
+		self.snip_edit_icon = builder.get_object('snippet_edit')
 		self.tree = builder.get_object('category_treeview')
 		self.tree_store = builder.get_object('treestore1')
 		self.snippet_box = builder.get_object('snippet_box')
@@ -151,6 +159,11 @@ class MyWindow(Gtk.ApplicationWindow):
 	def adv_search_callback(self, action, parameter=None):
 		print("\"Advanced Search\" activated")
 
+	# callback function for search_action
+	def search_callback(self, action, parameter=None):
+		print("\"Search\" activated")
+
+
 	# callback function for copy_action
 	def copy_callback(self, action, parameter=None):
 		print("\"Copy\" activated")
@@ -203,11 +216,16 @@ class MyWindow(Gtk.ApplicationWindow):
 		if treeiter is not None:
 			if model[treeiter][0] in self.db_contents:  # it is a category
 				self.snippet_textbuffer.set_text('')
+				if self.new_snip.get_label() == 'Edit Snippet':
+					self.new_snip.set_label('New Snippet')
+					self.new_snip.set_icon_widget(self.snip_new_icon)
 			else:
 				category = model[treeiter].parent[0]
 				snippet = model[treeiter][0]
 				snippet_text = self.db_contents[category][snippet]['plain_text']
 				self.snippet_textbuffer.set_text(snippet_text)
+				self.new_snip.set_label('Edit Snippet')
+				self.new_snip.set_icon_widget(self.snip_edit_icon)
 
 
 class MyApplication(Gtk.Application):

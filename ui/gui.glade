@@ -24,6 +24,13 @@
     <property name="can_focus">False</property>
     <property name="pixbuf">icons\folder_add.png</property>
   </object>
+  <object class="GtkAction" id="new_cat">
+    <property name="label" translatable="yes">new_cat</property>
+    <signal name="activate" handler="new_cat_callback" swapped="no"/>
+  </object>
+  <object class="GtkAction" id="new_snip">
+    <signal name="activate" handler="new_snip_callback" swapped="no"/>
+  </object>
   <object class="GtkImage" id="search">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -33,6 +40,11 @@
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="pixbuf">icons\page_white_delete.png</property>
+  </object>
+  <object class="GtkImage" id="snippet_edit">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="pixbuf">icons\page_white_edit.png</property>
   </object>
   <object class="GtkImage" id="snippet_new">
     <property name="visible">True</property>
@@ -71,10 +83,10 @@
                 <property name="icon_size">2</property>
                 <child>
                   <object class="GtkToolButton" id="New Category">
+                    <property name="related_action">new_cat</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="tooltip_text" translatable="yes">Add a New Category</property>
-                    <property name="action_name">win.new_cat</property>
                     <property name="label" translatable="yes">New Category</property>
                     <property name="use_underline">True</property>
                     <property name="icon_widget">folder_new</property>
@@ -100,14 +112,24 @@
                   </packing>
                 </child>
                 <child>
+                  <object class="GtkSeparatorToolItem" id="separatortoolitem1">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="homogeneous">False</property>
+                  </packing>
+                </child>
+                <child>
                   <object class="GtkToolButton" id="New Snippet">
+                    <property name="related_action">new_snip</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="tooltip_text" translatable="yes">Add a New Snippet</property>
                     <property name="label" translatable="yes">New Snippet</property>
                     <property name="use_underline">True</property>
                     <property name="icon_widget">snippet_new</property>
-                    <signal name="clicked" handler="new_snip_callback" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -140,7 +162,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkToolButton" id="Search">
+                  <object class="GtkToolButton" id="Advanced Search">
                     <property name="related_action">adv_search</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
@@ -162,7 +184,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkSearchEntry" id="searchentry1">
+              <object class="GtkSearchEntry" id="Search">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="primary_icon_name">edit-find-symbolic</property>
