@@ -5,6 +5,7 @@
 # TODO: Write code to load/read settings
 # TODO: Write code to load database into controls
 # TODO: Add logging
+# TODO: Add textview and webview to scrolled windows
 
 
 import database_functions as db_func
@@ -17,7 +18,7 @@ gi.require_version('Gdk', '3.0')
 gi.require_version('Gtk', '3.0')
 gi.require_version('WebKit', '3.0')
 
-from gi.repository import Gdk, Gio, Gtk, WebKit
+from gi.repository import Gio, Gtk, WebKit
 
 config_file = os.path.join(os.getcwd(), 'psm.ini')
 database = utils.get_db_file(config_file)
@@ -26,7 +27,7 @@ database = utils.get_db_file(config_file)
 class MyWindow(Gtk.ApplicationWindow):
 	def __init__(self, app):
 		Gtk.Window.__init__(self, title="PySnippet Manager", application=app)
-		self.set_default_size(800, 600)
+		self.set_default_size(1024, 768)
 		self.db_file = utils.get_db_file(config_file)
 		self.db_contents = db_func.read_db(self.db_file)
 
@@ -86,6 +87,8 @@ class MyWindow(Gtk.ApplicationWindow):
 		self.tree = builder.get_object('category_treeview')
 		self.tree_store = builder.get_object('treestore1')
 		self.snippet_box = builder.get_object('snippet_box')
+		self.snippet_text = builder.get_object('snippet_textview')
+		self.snippet_textbuffer = self.snippet_text.get_buffer()
 		self.editor = WebKit.WebView()
 		self.editor.set_editable(True)
 		self.snippet_box.add(self.editor)
@@ -99,7 +102,10 @@ class MyWindow(Gtk.ApplicationWindow):
 		main_column.add_attribute(cell, "text", 0)
 		self.populate_treeview()
 		self.tree.append_column(main_column)
+		self.select = self.tree.get_selection()
+		self.select.connect('changed', self.on_tree_selection_changed)
 
+	# ---------- Callback Functions ----------
 	# callback function for new_db_action
 	def new_db_callback(self, action, parameter=None):
 		dialog = Gtk.FileChooserDialog("Please choose a name and location for the database file", self,
@@ -189,6 +195,19 @@ class MyWindow(Gtk.ApplicationWindow):
 			it = self.tree_store.append(None, [category])
 			for item in self.db_contents[category]:
 				self.tree_store.append(it, [item])
+
+
+	# ---------- Event Handlers ----------
+	def on_tree_selection_changed(self, selection):
+		model, treeiter = selection.get_selected()
+		if treeiter is not None:
+			if model[treeiter][0] in self.db_contents:  # it is a category
+				self.snippet_textbuffer.set_text('')
+			else:
+				category = model[treeiter].parent[0]
+				snippet = model[treeiter][0]
+				snippet_text = self.db_contents[category][snippet]['plain_text']
+				self.snippet_textbuffer.set_text(snippet_text)
 
 
 class MyApplication(Gtk.Application):

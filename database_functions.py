@@ -1,4 +1,3 @@
-# TODO: Create function to read database
 # TODO: Add unit tests
 # TODO: Add error handling for database access: init, open, close, etc.
 
@@ -74,23 +73,35 @@ def read_db(database_file):
 	:rtype: SortedDict
 	"""
 	snippet_dict = SortedDict()
+	temp_dict1 = {}
+	temp_dict2 = SortedDict()
 
 	db.init(database_file)
 	db.connect()
 
 	for snippet in Snippet.select().order_by('category'):
+		temp_dict1 = {}
+		temp_dict2 = SortedDict()
 		if snippet.category not in snippet_dict:
-			snippet_list = [snippet.category, snippet.language, snippet.tags,
-			                snippet.notes, snippet.plain_text, snippet.syntax_text]
-			temp_dict = SortedDict()
-			temp_dict[snippet.name] = snippet_list
-			snippet_dict[snippet.category] = temp_dict
+			temp_dict1['name'] = snippet.name
+			temp_dict1['category'] = snippet.category
+			temp_dict1['language'] = snippet.language
+			temp_dict1['tags'] = snippet.tags
+			temp_dict1['notes'] = snippet.notes
+			temp_dict1['plain_text'] = snippet.plain_text
+			temp_dict1['syntax_text'] = snippet.syntax_text
+			temp_dict2[snippet.name] = temp_dict1
+			snippet_dict[snippet.category] = temp_dict2
 		else:
-			snippet_list = [snippet.category, snippet.language, snippet.tags,
-			                snippet.notes, snippet.plain_text, snippet.syntax_text]
-			temp_dict = SortedDict()
-			temp_dict[snippet.name] = snippet_list
-			snippet_dict[snippet.category].update(temp_dict)
+			temp_dict1['name'] = snippet.name
+			temp_dict1['category'] = snippet.category
+			temp_dict1['language'] = snippet.language
+			temp_dict1['tags'] = snippet.tags
+			temp_dict1['notes'] = snippet.notes
+			temp_dict1['plain_text'] = snippet.plain_text
+			temp_dict1['syntax_text'] = snippet.syntax_text
+			temp_dict2[snippet.name] = temp_dict1
+			snippet_dict[snippet.category].update(temp_dict2)
 
 	db.close()
 
