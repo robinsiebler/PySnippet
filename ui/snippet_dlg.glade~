@@ -4,6 +4,231 @@
   <requires lib="gtk+" version="3.12"/>
   <object class="GtkTextBuffer" id="notes_txtbuffer"/>
   <object class="GtkTextBuffer" id="snippet_textbuffer"/>
+  <object class="GtkTextBuffer" id="snippet_textbuffer1"/>
+  <object class="GtkListStore" id="syntax_liststore">
+    <columns>
+      <!-- column-name Syntax -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0">ActionScript</col>
+      </row>
+      <row>
+        <col id="0">ActionScript</col>
+      </row>
+      <row>
+        <col id="0">Ada</col>
+      </row>
+      <row>
+        <col id="0">ANTLR</col>
+      </row>
+      <row>
+        <col id="0">Apache config files</col>
+      </row>
+      <row>
+        <col id="0">AppleScript</col>
+      </row>
+      <row>
+        <col id="0">Assembly</col>
+      </row>
+      <row>
+        <col id="0">Asymptote</col>
+      </row>
+      <row>
+        <col id="0">Awk</col>
+      </row>
+      <row>
+        <col id="0">Bash</col>
+      </row>
+      <row>
+        <col id="0">BBCode</col>
+      </row>
+      <row>
+        <col id="0">Befunge</col>
+      </row>
+      <row>
+        <col id="0">Boo</col>
+      </row>
+      <row>
+        <col id="0">BrainFuck</col>
+      </row>
+      <row>
+        <col id="0">C, C++</col>
+      </row>
+      <row>
+        <col id="0">C#</col>
+      </row>
+      <row>
+        <col id="0">Cheetah templates</col>
+      </row>
+      <row>
+        <col id="0">Clojure</col>
+      </row>
+      <row>
+        <col id="0">CMake</col>
+      </row>
+      <row>
+        <col id="0">CoffeeScript</col>
+      </row>
+      <row>
+        <col id="0">ColdFusion</col>
+      </row>
+      <row>
+        <col id="0">Coq</col>
+      </row>
+      <row>
+        <col id="0">Cryptol</col>
+      </row>
+      <row>
+        <col id="0">CSS</col>
+      </row>
+      <row>
+        <col id="0">Cython</col>
+      </row>
+      <row>
+        <col id="0">D</col>
+      </row>
+      <row>
+        <col id="0">Dart</col>
+      </row>
+      <row>
+        <col id="0">Debian control files</col>
+      </row>
+      <row>
+        <col id="0">Delphi</col>
+      </row>
+      <row>
+        <col id="0">Diff files</col>
+      </row>
+      <row>
+        <col id="0">Django/Jinja templates</col>
+      </row>
+      <row>
+        <col id="0">DTD</col>
+      </row>
+      <row>
+        <col id="0">Dylan</col>
+      </row>
+      <row>
+        <col id="0">ERB (Ruby templates)</col>
+      </row>
+      <row>
+        <col id="0">Erlang</col>
+      </row>
+      <row>
+        <col id="0">Ezhil Ezhil - A Tamil programming language</col>
+      </row>
+      <row>
+        <col id="0">F#</col>
+      </row>
+      <row>
+        <col id="0">Factor</col>
+      </row>
+      <row>
+        <col id="0">Fancy</col>
+      </row>
+      <row>
+        <col id="0">Fortran</col>
+      </row>
+      <row>
+        <col id="0">GAP</col>
+      </row>
+      <row>
+        <col id="0">Genshi (the Trac template language)</col>
+      </row>
+      <row>
+        <col id="0">Gettext catalogs</col>
+      </row>
+      <row>
+        <col id="0">Gherkin (Cucumber)</col>
+      </row>
+      <row>
+        <col id="0">GL shaders</col>
+      </row>
+      <row>
+        <col id="0">Gnuplot script</col>
+      </row>
+      <row>
+        <col id="0">Groff markup</col>
+      </row>
+      <row>
+        <col id="0">Groovy</col>
+      </row>
+      <row>
+        <col id="0">Haskell</col>
+      </row>
+      <row>
+        <col id="0">HTML</col>
+      </row>
+      <row>
+        <col id="0">HTTP sessions</col>
+      </row>
+      <row>
+        <col id="0">IDL</col>
+      </row>
+      <row>
+        <col id="0">INI</col>
+      </row>
+      <row>
+        <col id="0">Io</col>
+      </row>
+      <row>
+        <col id="0">IRC logs</col>
+      </row>
+      <row>
+        <col id="0">Java</col>
+      </row>
+      <row>
+        <col id="0">JavaScript</col>
+      </row>
+      <row>
+        <col id="0">JSP (Java Server Pages)</col>
+      </row>
+      <row>
+        <col id="0">Lasso</col>
+      </row>
+      <row>
+        <col id="0">Lighttpd config files</col>
+      </row>
+      <row>
+        <col id="0">Lisp</col>
+      </row>
+      <row>
+        <col id="0">LLVM</col>
+      </row>
+      <row>
+        <col id="0">Logtalk</col>
+      </row>
+      <row>
+        <col id="0">Lua</col>
+      </row>
+      <row>
+        <col id="0">Makefiles</col>
+      </row>
+      <row>
+        <col id="0">Mako (the Myghty successor)</col>
+      </row>
+      <row>
+        <col id="0">Matlab</col>
+      </row>
+      <row>
+        <col id="0">MiniD</col>
+      </row>
+      <row>
+        <col id="0">Modelica</col>
+      </row>
+      <row>
+        <col id="0">Modula-2</col>
+      </row>
+      <row>
+        <col id="0">MoinMoin/Trac Wiki markup</col>
+      </row>
+      <row>
+        <col id="0">MuPad</col>
+      </row>
+    </data>
+  </object>
   <object class="GtkWindow" id="snippet_dlg">
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Create Snippet</property>
@@ -24,7 +249,6 @@
                 <property name="width_request">0</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="halign">start</property>
                 <property name="margin_left">1</property>
                 <property name="margin_right">6</property>
                 <property name="placeholder_text" translatable="yes">Enter a title here</property>
@@ -229,23 +453,5 @@
         </child>
       </object>
     </child>
-  </object>
-  <object class="GtkTextBuffer" id="snippet_textbuffer1"/>
-  <object class="GtkListStore" id="syntax_liststore">
-    <columns>
-      <!-- column-name Syntax -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0">ActionScript</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Ada</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Basic</col>
-      </row>
-    </data>
   </object>
 </interface>
