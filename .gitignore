@@ -95,3 +95,4 @@ ENV/
 .glade~
 
 # Created by .ignore support plugin (hsz.mobi)
+*.glade~
