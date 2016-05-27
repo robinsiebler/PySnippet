@@ -4,7 +4,6 @@
 # TODO: Write code to load/read settings
 # TODO: Write code to load database into controls
 # TODO: Add logging
-# TODO: Add textview and webview to scrolled windows
 
 
 import database_functions as db_func
@@ -25,10 +24,8 @@ database = utils.get_db_file(config_file)
 empty_snippet = """
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
    "http://www.w3.org/TR/html4/strict.dtd">
-
 <html>
 <head>
-  <title></title>
   <meta http-equiv="content-type" content="text/html; charset=None">
   <style type="text/css">
 td.linenos { background-color: #f0f0f0; padding-right: 10px; }
@@ -38,49 +35,48 @@ body .hll { background-color: #ffffcc }
 body  { background: #f8f8f8; }
   </style>
 </head>
-<body>
-</body>
 </html>
 """
+
 
 class SnippetDialog():
 	def __init__(self, MainWindow):
 		builder = Gtk.Builder()
-		builder.add_from_file(r'ui\gui.glade')
+		builder.add_from_file(r'ui\snippet_dlg.glade')
 		builder.connect_signals(self)
 		self.window = builder.get_object('snippet_dlg')
 		self.txt_title = builder.get_object('txt_title')
 		self.combo = builder.get_object('syntax_combobox')
 		self.txt_keywords = builder.get_object('txt_keywords')
 		self.notes_textview = builder.get_object('notes_txtview')
-		self.snippet_textview = builder.get_object('snippeet_txtview')
+		self.snippet_textview = builder.get_object('snippet_txtview')
 		self.btn_save = builder.get_object('btn_save')
 		self.btn_cancel = builder.get_object('btn_cancel')
-		self.window.set_default_size(800, 600)
+
+		renderer_text = Gtk.CellRendererText()
+		self.combo.pack_start(renderer_text, True)
+		self.combo.add_attribute(renderer_text, 'text', 0)
+
 		self.mw = MainWindow
 		self.window.set_transient_for(self.mw)
-		self.window.set_modal(True)
 		self.window.show()
 
 	def get_text(self, widget):
 		textbuffer = widget.get_buffer()
 		startiter, enditer = textbuffer.get_bounds()
-		text = textbuffer.get_text(startiter, enditer)
+		text = textbuffer.get_text(startiter, enditer, False)
 		return text
 
 	def get_combo_value(self):
-
 		syntax = None
 		tree_iter = self.combo.get_active_iter()
 		if tree_iter != None:
 			model = self.combo.get_model()
 			syntax = model[tree_iter][0]
 
-		return syntax
-
+		print syntax
 
 	def on_btn_click(self, button):
-
 		btn_name = Gtk.Buildable.get_name(button)
 		if btn_name == 'btn_save':
 			self.title = self.txt_title.get_text()
@@ -88,6 +84,7 @@ class SnippetDialog():
 			self.keywords = self.txt_keywords.get_text()
 			self.notes = self.get_text(self.notes_textview)
 			self.snippet = self.get_text(self.snippet_textview)
+			self.mw.title = self.title
 
 			print self.title
 			print self.syntax
@@ -96,8 +93,6 @@ class SnippetDialog():
 			print self.snippet
 
 		self.window.destroy()
-
-
 
 
 class MyWindow(Gtk.ApplicationWindow):
@@ -228,6 +223,7 @@ class MyWindow(Gtk.ApplicationWindow):
 	# callback function for new_snip_action
 	def new_snip_callback(self, action, parameter=None):
 		print("\"New Snippet\" activated")
+		snippet_window = SnippetDialog(self)
 
 	# callback function for del_snip_action
 	def del_snip_callback(self, action, parameter=None):
@@ -240,7 +236,6 @@ class MyWindow(Gtk.ApplicationWindow):
 	# callback function for search_action
 	def search_callback(self, action, parameter=None):
 		print("\"Search\" activated")
-
 
 	# callback function for copy_action
 	def copy_callback(self, action, parameter=None):
@@ -286,7 +281,6 @@ class MyWindow(Gtk.ApplicationWindow):
 			it = self.tree_store.append(None, [category])
 			for item in self.db_contents[category]:
 				self.tree_store.append(it, [item])
-
 
 	# ---------- Event Handlers ----------
 	def on_tree_selection_changed(self, selection):
