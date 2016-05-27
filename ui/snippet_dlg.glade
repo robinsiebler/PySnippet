@@ -1,0 +1,610 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.18.3 -->
+<interface>
+  <requires lib="gtk+" version="3.12"/>
+  <object class="GtkTextBuffer" id="notes_txtbuffer"/>
+  <object class="GtkTextBuffer" id="snippet_textbuffer"/>
+  <object class="GtkTextBuffer" id="snippet_textbuffer1"/>
+  <object class="GtkListStore" id="syntax_liststore">
+    <columns>
+      <!-- column-name Syntax -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0">ActionScript</col>
+      </row>
+      <row>
+        <col id="0">ActionScript</col>
+      </row>
+      <row>
+        <col id="0">Ada</col>
+      </row>
+      <row>
+        <col id="0">ANTLR</col>
+      </row>
+      <row>
+        <col id="0">Apache config files</col>
+      </row>
+      <row>
+        <col id="0">AppleScript</col>
+      </row>
+      <row>
+        <col id="0">Assembly</col>
+      </row>
+      <row>
+        <col id="0">Asymptote</col>
+      </row>
+      <row>
+        <col id="0">Awk</col>
+      </row>
+      <row>
+        <col id="0">Bash</col>
+      </row>
+      <row>
+        <col id="0">BBCode</col>
+      </row>
+      <row>
+        <col id="0">Befunge</col>
+      </row>
+      <row>
+        <col id="0">Boo</col>
+      </row>
+      <row>
+        <col id="0">BrainFuck</col>
+      </row>
+      <row>
+        <col id="0">C, C++</col>
+      </row>
+      <row>
+        <col id="0">C#</col>
+      </row>
+      <row>
+        <col id="0">Cheetah templates</col>
+      </row>
+      <row>
+        <col id="0">Clojure</col>
+      </row>
+      <row>
+        <col id="0">CMake</col>
+      </row>
+      <row>
+        <col id="0">CoffeeScript</col>
+      </row>
+      <row>
+        <col id="0">ColdFusion</col>
+      </row>
+      <row>
+        <col id="0">Coq</col>
+      </row>
+      <row>
+        <col id="0">Cryptol</col>
+      </row>
+      <row>
+        <col id="0">CSS</col>
+      </row>
+      <row>
+        <col id="0">Cython</col>
+      </row>
+      <row>
+        <col id="0">D</col>
+      </row>
+      <row>
+        <col id="0">Dart</col>
+      </row>
+      <row>
+        <col id="0">Debian control files</col>
+      </row>
+      <row>
+        <col id="0">Delphi</col>
+      </row>
+      <row>
+        <col id="0">Diff files</col>
+      </row>
+      <row>
+        <col id="0">Django/Jinja templates</col>
+      </row>
+      <row>
+        <col id="0">DTD</col>
+      </row>
+      <row>
+        <col id="0">Dylan</col>
+      </row>
+      <row>
+        <col id="0">ERB (Ruby templates)</col>
+      </row>
+      <row>
+        <col id="0">Erlang</col>
+      </row>
+      <row>
+        <col id="0">Ezhil Ezhil - A Tamil programming language</col>
+      </row>
+      <row>
+        <col id="0">F#</col>
+      </row>
+      <row>
+        <col id="0">Factor</col>
+      </row>
+      <row>
+        <col id="0">Fancy</col>
+      </row>
+      <row>
+        <col id="0">Fortran</col>
+      </row>
+      <row>
+        <col id="0">GAP</col>
+      </row>
+      <row>
+        <col id="0">Genshi (the Trac template language)</col>
+      </row>
+      <row>
+        <col id="0">Gettext catalogs</col>
+      </row>
+      <row>
+        <col id="0">Gherkin (Cucumber)</col>
+      </row>
+      <row>
+        <col id="0">GL shaders</col>
+      </row>
+      <row>
+        <col id="0">Gnuplot script</col>
+      </row>
+      <row>
+        <col id="0">Groff markup</col>
+      </row>
+      <row>
+        <col id="0">Groovy</col>
+      </row>
+      <row>
+        <col id="0">Haskell</col>
+      </row>
+      <row>
+        <col id="0">HTML</col>
+      </row>
+      <row>
+        <col id="0">HTTP sessions</col>
+      </row>
+      <row>
+        <col id="0">IDL</col>
+      </row>
+      <row>
+        <col id="0">INI</col>
+      </row>
+      <row>
+        <col id="0">Io</col>
+      </row>
+      <row>
+        <col id="0">IRC logs</col>
+      </row>
+      <row>
+        <col id="0">Java</col>
+      </row>
+      <row>
+        <col id="0">JavaScript</col>
+      </row>
+      <row>
+        <col id="0">JSP (Java Server Pages)</col>
+      </row>
+      <row>
+        <col id="0">Lasso</col>
+      </row>
+      <row>
+        <col id="0">Lighttpd config files</col>
+      </row>
+      <row>
+        <col id="0">Lisp</col>
+      </row>
+      <row>
+        <col id="0">LLVM</col>
+      </row>
+      <row>
+        <col id="0">Logtalk</col>
+      </row>
+      <row>
+        <col id="0">Lua</col>
+      </row>
+      <row>
+        <col id="0">Makefiles</col>
+      </row>
+      <row>
+        <col id="0">Mako (the Myghty successor)</col>
+      </row>
+      <row>
+        <col id="0">Matlab</col>
+      </row>
+      <row>
+        <col id="0">MiniD</col>
+      </row>
+      <row>
+        <col id="0">Modelica</col>
+      </row>
+      <row>
+        <col id="0">Modula-2</col>
+      </row>
+      <row>
+        <col id="0">MoinMoin/Trac Wiki markup</col>
+      </row>
+      <row>
+        <col id="0">MuPad</col>
+      </row>
+      <row>
+        <col id="0" translatable="no">Myghty (the HTML::Mason based framework)</col>
+      </row>
+      <row>
+        <col id="0" translatable="no">MySQL</col>
+      </row>
+      <row>
+        <col id="0" translatable="no">Nemerle</col>
+      </row>
+      <row>
+        <col id="0" translatable="no">Nginx config files</col>
+      </row>
+      <row>
+        <col id="0" translatable="no">Nimrod</col>
+      </row>
+      <row>
+        <col id="0" translatable="no">Objective-C</col>
+      </row>
+      <row>
+        <col id="0" translatable="no">Objective-J</col>
+      </row>
+      <row>
+        <col id="0" translatable="no">OCaml</col>
+      </row>
+      <row>
+        <col id="0" translatable="no">Octave</col>
+      </row>
+      <row>
+        <col id="0" translatable="no">Perl</col>
+      </row>
+      <row>
+        <col id="0" translatable="no">PHP</col>
+      </row>
+      <row>
+        <col id="0" translatable="no">PostScript</col>
+      </row>
+      <row>
+        <col id="0" translatable="no">POV-Ray scenes</col>
+      </row>
+      <row>
+        <col id="0" translatable="no">PovRay</col>
+      </row>
+      <row>
+        <col id="0" translatable="no">PowerShell</col>
+      </row>
+      <row>
+        <col id="0" translatable="no">Prolog</col>
+      </row>
+      <row>
+        <col id="0" translatable="no">Python</col>
+      </row>
+      <row>
+        <col id="0" translatable="no">Ragel</col>
+      </row>
+      <row>
+        <col id="0" translatable="no">REBOL</col>
+      </row>
+      <row>
+        <col id="0" translatable="no">Red</col>
+      </row>
+      <row>
+        <col id="0" translatable="no">Redcode</col>
+      </row>
+      <row>
+        <col id="0" translatable="no">ReST</col>
+      </row>
+      <row>
+        <col id="0" translatable="no">Robot Framework</col>
+      </row>
+      <row>
+        <col id="0" translatable="no">RPM spec files</col>
+      </row>
+      <row>
+        <col id="0" translatable="no">Ruby</col>
+      </row>
+      <row>
+        <col id="0" translatable="no">Rust</col>
+      </row>
+      <row>
+        <col id="0" translatable="no">S, S-Plus, R</col>
+      </row>
+      <row>
+        <col id="0" translatable="no">Scala</col>
+      </row>
+      <row>
+        <col id="0" translatable="no">Scheme</col>
+      </row>
+      <row>
+        <col id="0" translatable="no">Scilab</col>
+      </row>
+      <row>
+        <col id="0" translatable="no">Smalltalk</col>
+      </row>
+      <row>
+        <col id="0" translatable="no">Smarty templates (PHP templates)</col>
+      </row>
+      <row>
+        <col id="0" translatable="no">SNOBOL</col>
+      </row>
+      <row>
+        <col id="0" translatable="no">SQL, SQLite</col>
+      </row>
+      <row>
+        <col id="0" translatable="no">Squid config files</col>
+      </row>
+      <row>
+        <col id="0" translatable="no">Tcl</col>
+      </row>
+      <row>
+        <col id="0" translatable="no">tcsh</col>
+      </row>
+      <row>
+    <col id="0" translatable="no">Tea</col>
+  </row>
+  <row>
+    <col id="0" translatable="no">TeX</col>
+  </row>
+  <row>
+    <col id="0" translatable="no">Vala</col>
+  </row>
+  <row>
+    <col id="0" translatable="no">Verilog</col>
+  </row>
+  <row>
+    <col id="0" translatable="no">VHDL</col>
+  </row>
+  <row>
+    <col id="0" translatable="no">Vim Script</col>
+  </row>
+  <row>
+    <col id="0" translatable="no">Visual Basic.Net</col>
+  </row>
+  <row>
+    <col id="0" translatable="no">Visual FoxPro</col>
+  </row>
+  <row>
+    <col id="0" translatable="no">Windows Batch files</col>
+  </row>
+  <row>
+    <col id="0" translatable="no">XML</col>
+  </row>
+  <row>
+    <col id="0" translatable="no">XQuery</col>
+  </row>
+  <row>
+    <col id="0" translatable="no">XSLT</col>
+  </row>
+  <row>
+    <col id="0" translatable="no">YAML</col>
+  </row>
+  <row>
+    <col id="0" translatable="no">Zephir</col>
+  </row>
+</data>
+  </object>
+  <object class="GtkWindow" id="snippet_dlg">
+    <property name="can_focus">False</property>
+    <property name="title" translatable="yes">Create Snippet</property>
+    <property name="modal">True</property>
+    <property name="default_width">800</property>
+    <property name="default_height">600</property>
+    <child>
+      <object class="GtkBox" id="box6">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkBox" id="box7">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkEntry" id="txt_title">
+                <property name="width_request">0</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="margin_left">1</property>
+                <property name="margin_right">6</property>
+                <property name="placeholder_text" translatable="yes">Enter a title here</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label1">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="margin_left">2</property>
+                <property name="margin_right">5</property>
+                <property name="label" translatable="yes">Syntax:</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkComboBox" id="syntax_combobox">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="model">syntax_liststore</property>
+                <property name="popup_fixed_width">False</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">3</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox" id="box8">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkLabel" id="label2">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="margin_left">2</property>
+                <property name="margin_right">5</property>
+                <property name="label" translatable="yes">Keywords:</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="txt_keywords">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="margin_top">5</property>
+                <property name="placeholder_text" translatable="yes">Enter keywords here</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="label3">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="halign">start</property>
+            <property name="margin_left">2</property>
+            <property name="label" translatable="yes">Notes:</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkScrolledWindow" id="scrolledwindow1">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="shadow_type">in</property>
+            <child>
+              <object class="GtkTextView" id="notes_txtview">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="margin_left">2</property>
+                <property name="buffer">notes_txtbuffer</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">3</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="label4">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="halign">start</property>
+            <property name="margin_left">2</property>
+            <property name="label" translatable="yes">Snippet:</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">4</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkScrolledWindow" id="scrolledwindow2">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="shadow_type">in</property>
+            <child>
+              <object class="GtkTextView" id="snippet_txtview">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="margin_left">2</property>
+                <property name="buffer">snippet_textbuffer</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">5</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox" id="box9">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkButton" id="btn_cancel">
+                <property name="label" translatable="yes">Cancel</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="has_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="halign">end</property>
+                <property name="margin_top">5</property>
+                <property name="image_position">right</property>
+                <signal name="clicked" handler="on_btn_click" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="pack_type">end</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="btn_save">
+                <property name="label" translatable="yes">Save</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="halign">end</property>
+                <property name="valign">center</property>
+                <property name="margin_top">5</property>
+                <property name="image_position">right</property>
+                <signal name="clicked" handler="on_btn_click" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="pack_type">end</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">6</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
