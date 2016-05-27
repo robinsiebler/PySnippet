@@ -1,4 +1,3 @@
-# TODO: Get CSS Styling to work!
 # TODO: Create the following dialogs: Advanced Search, Create/Delete Category
 # TODO: Write code for menu items/toolbar buttons
 # TODO: Write code to load/read settings
@@ -143,13 +142,6 @@ class MyWindow(Gtk.ApplicationWindow):
 		about_action.connect("activate", self.about_callback)
 		# action added to the application
 		self.add_action(about_action)
-
-		# screen = Gdk.Screen.get_default()
-		# css_provider = Gtk.CssProvider()
-		# css_provider.load_from_path('style.css')
-		# context = Gtk.StyleContext()
-		# context.add_provider_for_screen(screen, css_provider,
-		#                                 Gtk.STYLE_PROVIDER_PRIORITY_USER)
 
 		builder = Gtk.Builder()
 		builder.add_from_file(r'ui\gui.glade')
