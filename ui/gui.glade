@@ -31,6 +31,7 @@
   <object class="GtkAction" id="new_snip">
     <signal name="activate" handler="new_snip_callback" swapped="no"/>
   </object>
+  <object class="GtkTextBuffer" id="notes_txtbuffer"/>
   <object class="GtkImage" id="search">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -52,6 +53,362 @@
     <property name="pixbuf">icons\document-new-6.png</property>
   </object>
   <object class="GtkTextBuffer" id="snippet_textbuffer"/>
+  <object class="GtkListStore" id="syntax_liststore">
+    <columns>
+      <!-- column-name Syntax -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0">ActionScript
+Ada
+ANTLR
+Apache config files
+AppleScript
+Assembly (various)
+Asymptote
+Awk
+Bash shell scripts
+BBCode
+Befunge
+Boo
+BrainFuck
+C, C++
+C#
+Cheetah templates
+Clojure
+CMake
+CoffeeScript
+ColdFusion
+Common Lisp
+Coq
+Cryptol (incl. Literate Cryptol)
+CSS
+Cython
+D
+Dart
+Debian control files
+Delphi
+Diff files
+Django / Jinja templates
+DTD
+Dylan
+ERB (Ruby templating)
+Erlang
+Ezhil Ezhil - A Tamil programming language
+F#
+Factor
+Fancy
+Fortran
+GAP
+Genshi (the Trac template language)
+Gettext catalogs
+Gherkin (Cucumber)
+GL shaders
+Gnuplot script
+Groff markup
+Groovy
+Haskell (incl. Literate Haskell)
+HTML
+HTTP sessions
+IDL
+INI-style config files
+Io
+IRC logs (irssi style)
+Java
+JavaScript
+JSP (Java Server Pages)
+Lasso
+Lighttpd config files
+LLVM
+Logtalk
+Lua
+Makefiles
+Mako (the Myghty successor)
+Matlab
+MiniD
+Modelica
+Modula-2
+MoinMoin/Trac Wiki markup
+MuPad
+Myghty (the HTML::Mason based framework)
+MySQL
+Nemerle
+Nginx config files
+Nimrod
+Objective-C
+Objective-J
+OCaml
+Octave
+Perl
+PHP
+PostScript
+POV-Ray scenes
+PovRay
+PowerShell
+Prolog
+Python 2.x and 3.x (incl. console sessions and tracebacks)
+Ragel
+REBOL
+Red
+Redcode
+Redcode
+ReST
+Robot Framework
+RPM spec files
+Ruby (incl. irb sessions)
+Rust
+S, S-Plus, R
+Scala
+Scheme
+Scilab
+Smalltalk
+Smarty templates (PHP templating)
+SNOBOL
+SQL, also MySQL, SQLite
+Squid configuration
+Tcl
+tcsh
+Tea
+TeX
+Vala
+Verilog
+VHDL
+Vim Script
+Visual Basic.NET
+Visual FoxPro
+Windows batch files
+XML
+XQuery
+XSLT
+YAML
+Zephir</col>
+      </row>
+    </data>
+  </object>
+  <object class="GtkWindow" id="snippet_dlg">
+    <property name="can_focus">False</property>
+    <property name="title" translatable="yes">Create Snippet</property>
+    <property name="resizable">False</property>
+    <child>
+      <object class="GtkBox" id="box6">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkBox" id="box7">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkEntry" id="txt_title">
+                <property name="width_request">0</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="valign">start</property>
+                <property name="margin_left">2</property>
+                <property name="placeholder_text" translatable="yes">Enter a title here</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label1">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="margin_left">2</property>
+                <property name="margin_right">5</property>
+                <property name="label" translatable="yes">Syntax:</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkComboBox" id="syntax_combobox">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="margin_right">5</property>
+                <property name="model">syntax_liststore</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">3</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox" id="box8">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkLabel" id="label2">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="margin_left">2</property>
+                <property name="margin_right">5</property>
+                <property name="label" translatable="yes">Keywords:</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="txt_keywords">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="margin_right">5</property>
+                <property name="margin_top">5</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="label3">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="halign">start</property>
+            <property name="margin_left">2</property>
+            <property name="margin_right">5</property>
+            <property name="label" translatable="yes">Notes:</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkScrolledWindow" id="scrolledwindow1">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="shadow_type">in</property>
+            <child>
+              <object class="GtkTextView" id="notes_txtview">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="margin_right">5</property>
+                <property name="buffer">notes_txtbuffer</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">3</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="label4">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="halign">start</property>
+            <property name="margin_left">2</property>
+            <property name="margin_right">5</property>
+            <property name="label" translatable="yes">Snippet:</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">4</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkScrolledWindow" id="scrolledwindow2">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="shadow_type">in</property>
+            <child>
+              <object class="GtkTextView" id="snippet_txtview">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="margin_right">5</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">5</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox" id="box9">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkButton" id="btn_cancel">
+                <property name="label" translatable="yes">Cancel</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="halign">end</property>
+                <property name="margin_right">5</property>
+                <property name="margin_top">5</property>
+                <property name="image_position">right</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="pack_type">end</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="btn_save">
+                <property name="label" translatable="yes">Save</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="halign">end</property>
+                <property name="valign">center</property>
+                <property name="margin_right">15</property>
+                <property name="margin_top">5</property>
+                <property name="image_position">right</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="pack_type">end</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">6</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
   <object class="GtkTreeStore" id="treestore1">
     <columns>
       <!-- column-name Snippets -->
@@ -230,17 +587,21 @@
                 <property name="can_focus">False</property>
                 <property name="margin_right">2</property>
                 <property name="orientation">vertical</property>
-                <property name="homogeneous">True</property>
                 <child>
-                  <object class="GtkTextView" id="snippet_textview">
+                  <object class="GtkLabel" id="label8">
                     <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="left_margin">2</property>
-                    <property name="buffer">snippet_textbuffer</property>
+                    <property name="can_focus">False</property>
+                    <property name="halign">start</property>
+                    <property name="valign">start</property>
+                    <property name="label" translatable="yes">Notes</property>
+                    <property name="ellipsize">middle</property>
+                    <attributes>
+                      <attribute name="weight" value="bold"/>
+                    </attributes>
                   </object>
                   <packing>
-                    <property name="expand">True</property>
-                    <property name="fill">True</property>
+                    <property name="expand">False</property>
+                    <property name="fill">False</property>
                     <property name="position">0</property>
                   </packing>
                 </child>
@@ -248,34 +609,18 @@
                   <object class="GtkBox" id="box3">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="orientation">vertical</property>
                     <child>
-                      <object class="GtkBox" id="box4">
+                      <object class="GtkScrolledWindow" id="scrolledwindow4">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="orientation">vertical</property>
+                        <property name="can_focus">True</property>
+                        <property name="shadow_type">in</property>
                         <child>
-                          <object class="GtkLabel" id="date_label">
+                          <object class="GtkTextView" id="notes_textview">
                             <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">label</property>
+                            <property name="can_focus">True</property>
+                            <property name="buffer">notes_txtbuffer</property>
                           </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkLabel" id="tags_label">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">label</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">1</property>
-                          </packing>
                         </child>
                       </object>
                       <packing>
@@ -285,14 +630,58 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkTextView" id="notes_textview">
+                      <object class="GtkBox" id="box4">
                         <property name="visible">True</property>
-                        <property name="can_focus">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="halign">start</property>
+                        <property name="orientation">vertical</property>
+                        <child>
+                          <object class="GtkLabel" id="label5">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="halign">start</property>
+                            <property name="label" translatable="yes">Date:</property>
+                          </object>
+                          <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">False</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="label6">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="margin_bottom">5</property>
+                            <property name="label" translatable="yes">Keywords:</property>
+                          </object>
+                          <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">False</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
                       </object>
                       <packing>
-                        <property name="expand">True</property>
+                        <property name="expand">False</property>
                         <property name="fill">True</property>
                         <property name="position">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label7">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="halign">start</property>
+                        <property name="label" translatable="yes">Snippet</property>
+                        <attributes>
+                          <attribute name="weight" value="bold"/>
+                        </attributes>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                        <property name="position">2</property>
                       </packing>
                     </child>
                   </object>

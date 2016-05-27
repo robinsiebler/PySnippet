@@ -1,6 +1,5 @@
 # TODO: Get CSS Styling to work!
-# TODO: Fix window resize issue!
-# TODO: Create the following dialogs: Advanced Search, Create/Edit Snippet, Create/Delete Category
+# TODO: Create the following dialogs: Advanced Search, Create/Delete Category
 # TODO: Write code for menu items/toolbar buttons
 # TODO: Write code to load/read settings
 # TODO: Write code to load database into controls
@@ -22,6 +21,83 @@ from gi.repository import Gio, Gtk, WebKit
 
 config_file = os.path.join(os.getcwd(), 'psm.ini')
 database = utils.get_db_file(config_file)
+
+empty_snippet = """
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="content-type" content="text/html; charset=None">
+  <style type="text/css">
+td.linenos { background-color: #f0f0f0; padding-right: 10px; }
+span.lineno { background-color: #f0f0f0; padding: 0 5px 0 5px; }
+pre { line-height: 125%; }
+body .hll { background-color: #ffffcc }
+body  { background: #f8f8f8; }
+  </style>
+</head>
+<body>
+</body>
+</html>
+"""
+
+class SnippetDialog():
+	def __init__(self, MainWindow):
+		builder = Gtk.Builder()
+		builder.add_from_file(r'ui\gui.glade')
+		builder.connect_signals(self)
+		self.window = builder.get_object('snippet_dlg')
+		self.txt_title = builder.get_object('txt_title')
+		self.combo = builder.get_object('syntax_combobox')
+		self.txt_keywords = builder.get_object('txt_keywords')
+		self.notes_textview = builder.get_object('notes_txtview')
+		self.snippet_textview = builder.get_object('snippeet_txtview')
+		self.btn_save = builder.get_object('btn_save')
+		self.btn_cancel = builder.get_object('btn_cancel')
+		self.window.set_default_size(800, 600)
+		self.mw = MainWindow
+		self.window.set_transient_for(self.mw)
+		self.window.set_modal(True)
+		self.window.show()
+
+	def get_text(self, widget):
+		textbuffer = widget.get_buffer()
+		startiter, enditer = textbuffer.get_bounds()
+		text = textbuffer.get_text(startiter, enditer)
+		return text
+
+	def get_combo_value(self):
+
+		syntax = None
+		tree_iter = self.combo.get_active_iter()
+		if tree_iter != None:
+			model = self.combo.get_model()
+			syntax = model[tree_iter][0]
+
+		return syntax
+
+
+	def on_btn_click(self, button):
+
+		btn_name = Gtk.Buildable.get_name(button)
+		if btn_name == 'btn_save':
+			self.title = self.txt_title.get_text()
+			self.syntax = self.get_combo_value()
+			self.keywords = self.txt_keywords.get_text()
+			self.notes = self.get_text(self.notes_textview)
+			self.snippet = self.get_text(self.snippet_textview)
+
+			print self.title
+			print self.syntax
+			print  self.keywords
+			print self.notes
+			print self.snippet
+
+		self.window.destroy()
+
+
 
 
 class MyWindow(Gtk.ApplicationWindow):
@@ -95,12 +171,14 @@ class MyWindow(Gtk.ApplicationWindow):
 		self.tree = builder.get_object('category_treeview')
 		self.tree_store = builder.get_object('treestore1')
 		self.snippet_box = builder.get_object('snippet_box')
-		self.snippet_text = builder.get_object('snippet_textview')
-		self.snippet_textbuffer = self.snippet_text.get_buffer()
+		self.notes_textview = builder.get_object('notes_textview')
+		self.notes_textbuffer = self.notes_textview.get_buffer()
+		scroll = Gtk.ScrolledWindow()
 		self.editor = WebKit.WebView()
 		self.editor.set_editable(True)
-		self.snippet_box.add(self.editor)
-		# self.editor.load_html_string(self.db_file, "file:///") #example load string
+		self.editor.load_html_string(empty_snippet, "file:///")
+		scroll.add(self.editor)
+		self.snippet_box.pack_end(scroll, True, True, 0)
 		self.set_position(Gtk.WindowPosition.CENTER)
 
 		main_column = Gtk.TreeViewColumn()
@@ -215,15 +293,18 @@ class MyWindow(Gtk.ApplicationWindow):
 		model, treeiter = selection.get_selected()
 		if treeiter is not None:
 			if model[treeiter][0] in self.db_contents:  # it is a category
-				self.snippet_textbuffer.set_text('')
+				self.notes_textbuffer.set_text('')
+				self.editor.load_html_string(empty_snippet, "file:///")
 				if self.new_snip.get_label() == 'Edit Snippet':
 					self.new_snip.set_label('New Snippet')
 					self.new_snip.set_icon_widget(self.snip_new_icon)
 			else:
 				category = model[treeiter].parent[0]
 				snippet = model[treeiter][0]
-				snippet_text = self.db_contents[category][snippet]['plain_text']
-				self.snippet_textbuffer.set_text(snippet_text)
+				snippet_text = self.db_contents[category][snippet]['syntax_text']
+				notes = self.db_contents[category][snippet]['notes']
+				self.notes_textbuffer.set_text(notes)
+				self.editor.load_html_string(snippet_text, "file:///")
 				self.new_snip.set_label('Edit Snippet')
 				self.new_snip.set_icon_widget(self.snip_edit_icon)
 
