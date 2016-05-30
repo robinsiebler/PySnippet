@@ -228,159 +228,159 @@
         <col id="0">MuPad</col>
       </row>
       <row>
-        <col id="0" translatable="no">Myghty (the HTML::Mason based framework)</col>
+        <col id="0">Myghty (the HTML::Mason based framework)</col>
       </row>
       <row>
-        <col id="0" translatable="no">MySQL</col>
+        <col id="0">MySQL</col>
       </row>
       <row>
-        <col id="0" translatable="no">Nemerle</col>
+        <col id="0">Nemerle</col>
       </row>
       <row>
-        <col id="0" translatable="no">Nginx config files</col>
+        <col id="0">Nginx config files</col>
       </row>
       <row>
-        <col id="0" translatable="no">Nimrod</col>
+        <col id="0">Nimrod</col>
       </row>
       <row>
-        <col id="0" translatable="no">Objective-C</col>
+        <col id="0">Objective-C</col>
       </row>
       <row>
-        <col id="0" translatable="no">Objective-J</col>
+        <col id="0">Objective-J</col>
       </row>
       <row>
-        <col id="0" translatable="no">OCaml</col>
+        <col id="0">OCaml</col>
       </row>
       <row>
-        <col id="0" translatable="no">Octave</col>
+        <col id="0">Octave</col>
       </row>
       <row>
-        <col id="0" translatable="no">Perl</col>
+        <col id="0">Perl</col>
       </row>
       <row>
-        <col id="0" translatable="no">PHP</col>
+        <col id="0">PHP</col>
       </row>
       <row>
-        <col id="0" translatable="no">PostScript</col>
+        <col id="0">PostScript</col>
       </row>
       <row>
-        <col id="0" translatable="no">POV-Ray scenes</col>
+        <col id="0">POV-Ray scenes</col>
       </row>
       <row>
-        <col id="0" translatable="no">PovRay</col>
+        <col id="0">PovRay</col>
       </row>
       <row>
-        <col id="0" translatable="no">PowerShell</col>
+        <col id="0">PowerShell</col>
       </row>
       <row>
-        <col id="0" translatable="no">Prolog</col>
+        <col id="0">Prolog</col>
       </row>
       <row>
-        <col id="0" translatable="no">Python</col>
+        <col id="0">Python</col>
       </row>
       <row>
-        <col id="0" translatable="no">Ragel</col>
+        <col id="0">Ragel</col>
       </row>
       <row>
-        <col id="0" translatable="no">REBOL</col>
+        <col id="0">REBOL</col>
       </row>
       <row>
-        <col id="0" translatable="no">Red</col>
+        <col id="0">Red</col>
       </row>
       <row>
-        <col id="0" translatable="no">Redcode</col>
+        <col id="0">Redcode</col>
       </row>
       <row>
-        <col id="0" translatable="no">ReST</col>
+        <col id="0">ReST</col>
       </row>
       <row>
-        <col id="0" translatable="no">Robot Framework</col>
+        <col id="0">Robot Framework</col>
       </row>
       <row>
-        <col id="0" translatable="no">RPM spec files</col>
+        <col id="0">RPM spec files</col>
       </row>
       <row>
-        <col id="0" translatable="no">Ruby</col>
+        <col id="0">Ruby</col>
       </row>
       <row>
-        <col id="0" translatable="no">Rust</col>
+        <col id="0">Rust</col>
       </row>
       <row>
-        <col id="0" translatable="no">S, S-Plus, R</col>
+        <col id="0">S, S-Plus, R</col>
       </row>
       <row>
-        <col id="0" translatable="no">Scala</col>
+        <col id="0">Scala</col>
       </row>
       <row>
-        <col id="0" translatable="no">Scheme</col>
+        <col id="0">Scheme</col>
       </row>
       <row>
-        <col id="0" translatable="no">Scilab</col>
+        <col id="0">Scilab</col>
       </row>
       <row>
-        <col id="0" translatable="no">Smalltalk</col>
+        <col id="0">Smalltalk</col>
       </row>
       <row>
-        <col id="0" translatable="no">Smarty templates (PHP templates)</col>
+        <col id="0">Smarty templates (PHP templates)</col>
       </row>
       <row>
-        <col id="0" translatable="no">SNOBOL</col>
+        <col id="0">SNOBOL</col>
       </row>
       <row>
-        <col id="0" translatable="no">SQL, SQLite</col>
+        <col id="0">SQL, SQLite</col>
       </row>
       <row>
-        <col id="0" translatable="no">Squid config files</col>
+        <col id="0">Squid config files</col>
       </row>
       <row>
-        <col id="0" translatable="no">Tcl</col>
+        <col id="0">Tcl</col>
       </row>
       <row>
-        <col id="0" translatable="no">tcsh</col>
+        <col id="0">tcsh</col>
       </row>
       <row>
-    <col id="0" translatable="no">Tea</col>
-  </row>
-  <row>
-    <col id="0" translatable="no">TeX</col>
-  </row>
-  <row>
-    <col id="0" translatable="no">Vala</col>
-  </row>
-  <row>
-    <col id="0" translatable="no">Verilog</col>
-  </row>
-  <row>
-    <col id="0" translatable="no">VHDL</col>
-  </row>
-  <row>
-    <col id="0" translatable="no">Vim Script</col>
-  </row>
-  <row>
-    <col id="0" translatable="no">Visual Basic.Net</col>
-  </row>
-  <row>
-    <col id="0" translatable="no">Visual FoxPro</col>
-  </row>
-  <row>
-    <col id="0" translatable="no">Windows Batch files</col>
-  </row>
-  <row>
-    <col id="0" translatable="no">XML</col>
-  </row>
-  <row>
-    <col id="0" translatable="no">XQuery</col>
-  </row>
-  <row>
-    <col id="0" translatable="no">XSLT</col>
-  </row>
-  <row>
-    <col id="0" translatable="no">YAML</col>
-  </row>
-  <row>
-    <col id="0" translatable="no">Zephir</col>
-  </row>
-</data>
+        <col id="0">Tea</col>
+      </row>
+      <row>
+        <col id="0">TeX</col>
+      </row>
+      <row>
+        <col id="0">Vala</col>
+      </row>
+      <row>
+        <col id="0">Verilog</col>
+      </row>
+      <row>
+        <col id="0">VHDL</col>
+      </row>
+      <row>
+        <col id="0">Vim Script</col>
+      </row>
+      <row>
+        <col id="0">Visual Basic.Net</col>
+      </row>
+      <row>
+        <col id="0">Visual FoxPro</col>
+      </row>
+      <row>
+        <col id="0">Windows Batch files</col>
+      </row>
+      <row>
+        <col id="0">XML</col>
+      </row>
+      <row>
+        <col id="0">XQuery</col>
+      </row>
+      <row>
+        <col id="0">XSLT</col>
+      </row>
+      <row>
+        <col id="0">YAML</col>
+      </row>
+      <row>
+        <col id="0">Zephir</col>
+      </row>
+    </data>
   </object>
   <object class="GtkWindow" id="snippet_dlg">
     <property name="can_focus">False</property>
@@ -433,6 +433,7 @@
               <object class="GtkComboBox" id="syntax_combobox">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="tooltip_text" translatable="yes">Choose syntax highlighting to be used on the snippet</property>
                 <property name="model">syntax_liststore</property>
                 <property name="popup_fixed_width">False</property>
               </object>
@@ -510,6 +511,7 @@
               <object class="GtkTextView" id="notes_txtview">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="tooltip_text" translatable="yes">Enter any notes related to the snippet</property>
                 <property name="margin_left">2</property>
                 <property name="buffer">notes_txtbuffer</property>
               </object>
@@ -544,6 +546,7 @@
               <object class="GtkTextView" id="snippet_txtview">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="tooltip_text" translatable="yes">Enter your snippet here</property>
                 <property name="margin_left">2</property>
                 <property name="buffer">snippet_textbuffer</property>
               </object>
@@ -566,6 +569,7 @@
                 <property name="can_focus">True</property>
                 <property name="has_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="tooltip_text" translatable="yes">Exit without saving</property>
                 <property name="halign">end</property>
                 <property name="margin_top">5</property>
                 <property name="image_position">right</property>
@@ -584,6 +588,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="tooltip_text" translatable="yes">Save snippet</property>
                 <property name="halign">end</property>
                 <property name="valign">center</property>
                 <property name="margin_top">5</property>

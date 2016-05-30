@@ -11,7 +11,7 @@ class Snippet(Model):
 	name = CharField()
 	category = CharField()
 	language = CharField()
-	tags = CharField()
+	keywords = CharField()
 	notes = CharField()
 	plain_text = CharField()
 	syntax_text = CharField()
@@ -30,7 +30,7 @@ def add_data(data_dict):
 	snippet = Snippet(name=data_dict['name'],
 	                  category=data_dict['category'],
 	                  language=data_dict['language'],
-	                  tags=data_dict['tags'],
+	                  keywords=data_dict['keywords'],
 	                  notes=data_dict['notes'],
 	                  plain_text=data_dict['plain_text'],
 	                  syntax_text=data_dict['syntax_text'])
@@ -86,7 +86,7 @@ def read_db(database_file):
 			temp_dict1['name'] = snippet.name
 			temp_dict1['category'] = snippet.category
 			temp_dict1['language'] = snippet.language
-			temp_dict1['tags'] = snippet.tags
+			temp_dict1['keywords'] = snippet.keywords
 			temp_dict1['notes'] = snippet.notes
 			temp_dict1['plain_text'] = snippet.plain_text
 			temp_dict1['syntax_text'] = snippet.syntax_text
@@ -96,7 +96,7 @@ def read_db(database_file):
 			temp_dict1['name'] = snippet.name
 			temp_dict1['category'] = snippet.category
 			temp_dict1['language'] = snippet.language
-			temp_dict1['tags'] = snippet.tags
+			temp_dict1['keywords'] = snippet.keywords
 			temp_dict1['notes'] = snippet.notes
 			temp_dict1['plain_text'] = snippet.plain_text
 			temp_dict1['syntax_text'] = snippet.syntax_text
@@ -121,7 +121,7 @@ def update_snippet(snippet_name, data_dict):
 	snippet.name = data_dict['name']
 	snippet.category = data_dict['category']
 	snippet.language = data_dict['language']
-	snippet.tags = data_dict['tags']
+	snippet.keywords = data_dict['keywords']
 	snippet.notes = data_dict['notes']
 	snippet.plain_text = data_dict['plain_text']
 	snippet.syntax_text = data_dict['syntax_text']
@@ -136,7 +136,7 @@ if __name__ == '__main__':
 	# data_dict = {'name': 'Create Database',
 	#              'category': 'Database Functions',
 	#              'language': 'Python',
-	#              'tags': 'test',
+	#              'keywords': 'test',
 	#              'notes': 'Foo',
 	#              'plain_text': """
  # def create_db():

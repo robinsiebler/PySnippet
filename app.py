@@ -59,6 +59,8 @@ class SnippetDialog():
 
 		self.mw = MainWindow
 		self.window.set_transient_for(self.mw)
+		if self.mw.new_snip.get_label() == 'Edit Snippet':
+			self.window.set_title('Edit Snippet')
 		self.window.show()
 
 	def get_text(self, widget):
@@ -74,24 +76,30 @@ class SnippetDialog():
 			model = self.combo.get_model()
 			syntax = model[tree_iter][0]
 
-		print syntax
+		return syntax
 
 	def on_btn_click(self, button):
 		btn_name = Gtk.Buildable.get_name(button)
 		if btn_name == 'btn_save':
-			self.title = self.txt_title.get_text()
+			self.name = self.txt_title.get_text()
 			self.syntax = self.get_combo_value()
 			self.keywords = self.txt_keywords.get_text()
 			self.notes = self.get_text(self.notes_textview)
 			self.snippet = self.get_text(self.snippet_textview)
-			self.mw.title = self.title
 
-			print self.title
-			print self.syntax
-			print  self.keywords
-			print self.notes
-			print self.snippet
+			new_snippet = {'name': self.name,
+			               'category': self.mw.current_category,
+			               'language': self.syntax,
+			               'keywords': self.keywords,
+			               'notes': self.notes,
+			               'plain_text': self.snippet,
+			               'syntax_text': utils.highlight_snippet(self.snippet, self.syntax)
+			               }
 
+			db_func.add_data(new_snippet)
+			self.mw.db_contents = db_func.read_db(self.mw.db_file)
+			self.mw.tree_store.clear()
+			self.mw.populate_treeview()
 		self.window.destroy()
 
 
@@ -101,6 +109,7 @@ class MyWindow(Gtk.ApplicationWindow):
 		self.set_default_size(1024, 768)
 		self.db_file = utils.get_db_file(config_file)
 		self.db_contents = db_func.read_db(self.db_file)
+		self.current_category = None
 
 		# action without a state created (name, parameter type)
 		new_db_action = Gio.SimpleAction.new("new_db", None)
@@ -144,13 +153,6 @@ class MyWindow(Gtk.ApplicationWindow):
 		# action added to the application
 		self.add_action(about_action)
 
-		# screen = Gdk.Screen.get_default()
-		# css_provider = Gtk.CssProvider()
-		# css_provider.load_from_path('style.css')
-		# context = Gtk.StyleContext()
-		# context.add_provider_for_screen(screen, css_provider,
-		#                                 Gtk.STYLE_PROVIDER_PRIORITY_USER)
-
 		builder = Gtk.Builder()
 		builder.add_from_file(r'ui\gui.glade')
 		builder.connect_signals(self)
@@ -158,6 +160,7 @@ class MyWindow(Gtk.ApplicationWindow):
 		self.new_cat = builder.get_object('New Category')
 		self.del_cat = builder.get_object('Delete Category')
 		self.new_snip = builder.get_object('New Snippet')
+		self.new_snip.set_sensitive(False)
 		self.del_snip = builder.get_object('Delete Snippet')
 		self.adv_search = builder.get_object('Advanced Search')
 		self.search = builder.get_object('Search')
@@ -222,8 +225,8 @@ class MyWindow(Gtk.ApplicationWindow):
 
 	# callback function for new_snip_action
 	def new_snip_callback(self, action, parameter=None):
-		print("\"New Snippet\" activated")
 		snippet_window = SnippetDialog(self)
+
 
 	# callback function for del_snip_action
 	def del_snip_callback(self, action, parameter=None):
@@ -252,14 +255,12 @@ class MyWindow(Gtk.ApplicationWindow):
 
 		# lists of authors and documenters (will be used later)
 		authors = ["Robin Siebler"]
-		documenters = ["None"]
 
 		# we fill in the aboutdialog
 		aboutdialog.set_program_name("PySnippet Manager")
 		aboutdialog.set_copyright(
 			"Copyright \xc2\xa9 2016 Robin Siebler")
 		aboutdialog.set_authors(authors)
-		aboutdialog.set_documenters(documenters)
 		aboutdialog.set_website("http://www.robinsiebler.com")
 		aboutdialog.set_website_label("My Website")
 
@@ -287,16 +288,18 @@ class MyWindow(Gtk.ApplicationWindow):
 		model, treeiter = selection.get_selected()
 		if treeiter is not None:
 			if model[treeiter][0] in self.db_contents:  # it is a category
+				self.new_snip.set_sensitive(True)
+				self.current_category = model[treeiter][0]
 				self.notes_textbuffer.set_text('')
 				self.editor.load_html_string(empty_snippet, "file:///")
 				if self.new_snip.get_label() == 'Edit Snippet':
 					self.new_snip.set_label('New Snippet')
 					self.new_snip.set_icon_widget(self.snip_new_icon)
 			else:
-				category = model[treeiter].parent[0]
+				self.current_category = model[treeiter].parent[0]
 				snippet = model[treeiter][0]
-				snippet_text = self.db_contents[category][snippet]['syntax_text']
-				notes = self.db_contents[category][snippet]['notes']
+				snippet_text = self.db_contents[self.current_category][snippet]['syntax_text']
+				notes = self.db_contents[self.current_category][snippet]['notes']
 				self.notes_textbuffer.set_text(notes)
 				self.editor.load_html_string(snippet_text, "file:///")
 				self.new_snip.set_label('Edit Snippet')
