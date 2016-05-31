@@ -63,3 +63,9 @@ def get_settings(section, config_file):
 		print("exception on %s!" % section)
 		settings = None
 	return settings
+
+def highlight_snippet(text, syntax):
+
+	if syntax == 'Python':
+		return highlight(text, PythonLexer(), HtmlFormatter(full=True))
+
