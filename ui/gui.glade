@@ -292,7 +292,7 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkLabel" id="label6">
+                          <object class="GtkLabel" id="keywords_lbl">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="margin_bottom">5</property>

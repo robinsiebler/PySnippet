@@ -1,7 +1,7 @@
 # TODO: Create the following dialogs: Advanced Search, Create/Delete Category
 # TODO: Write code for menu items/toolbar buttons
 # TODO: Write code to load/read settings
-# TODO: Write code to load database into controls
+# TODO: Save treeview expansion and selected object so that it can be restored after a change to the DB
 # TODO: Add logging
 
 
@@ -47,6 +47,7 @@ class SnippetDialog():
 		self.txt_title = builder.get_object('txt_title')
 		self.combo = builder.get_object('syntax_combobox')
 		self.txt_keywords = builder.get_object('txt_keywords')
+		self.keywords_buffer = builder.get_object('keywords_buffer')
 		self.notes_textview = builder.get_object('notes_txtview')
 		self.snippet_textview = builder.get_object('snippet_txtview')
 		self.btn_save = builder.get_object('btn_save')
@@ -60,6 +61,14 @@ class SnippetDialog():
 		self.window.set_transient_for(self.mw)
 		if self.mw.new_snip.get_label() == 'Edit Snippet':
 			self.window.set_title('Edit Snippet')
+			self.txt_title.set_text(self.mw.db_contents[self.mw.current_category][self.mw.current_snippet]['name'])
+			self.combo.set_active_id(self.mw.db_contents[self.mw.current_category][self.mw.current_snippet]['language'])
+			self.keywords_buffer.set_text(self.mw.db_contents[self.mw.current_category][self.mw.current_snippet]['keywords'], -1)
+			notes_buffer = self.notes_textview.get_buffer()
+			notes_buffer.set_text(self.mw.db_contents[self.mw.current_category][self.mw.current_snippet]['notes'])
+			snippet_buffer = self.snippet_textview.get_buffer()
+			snippet_buffer.set_text(self.mw.db_contents[self.mw.current_category][self.mw.current_snippet]['plain_text'])
+
 		self.window.show()
 
 	def get_text(self, widget):
@@ -79,7 +88,7 @@ class SnippetDialog():
 
 	def on_btn_click(self, button):
 		btn_name = Gtk.Buildable.get_name(button)
-		if btn_name == 'btn_save':
+		if btn_name == 'btn_save' and self.window.get_title() == 'Create Snippet':
 			self.name = self.txt_title.get_text()
 			self.syntax = self.get_combo_value()
 			self.keywords = self.txt_keywords.get_text()
@@ -99,6 +108,27 @@ class SnippetDialog():
 			self.mw.db_contents = db_func.read_db(self.mw.db_file)
 			self.mw.tree_store.clear()
 			self.mw.populate_treeview()
+		elif btn_name == 'btn_save' and self.window.get_title() == 'Edit Snippet':
+			self.name = self.txt_title.get_text()
+			self.syntax = self.get_combo_value()
+			self.keywords = self.txt_keywords.get_text()
+			self.notes = self.get_text(self.notes_textview)
+			self.snippet = self.get_text(self.snippet_textview)
+
+			snippet = {'name': self.name,
+			           'category': self.mw.current_category,
+			           'language': self.syntax,
+			           'keywords': self.keywords,
+			           'notes': self.notes,
+			           'plain_text': self.snippet,
+			           'syntax_text': utils.highlight_snippet(self.snippet, self.syntax)
+			           }
+			db_func.update_snippet(self.mw.db_contents[self.mw.current_category][self.mw.current_snippet]['name'],
+			                       snippet)
+			self.mw.db_contents = db_func.read_db(self.mw.db_file)
+			self.mw.tree_store.clear()
+			self.mw.populate_treeview()
+
 		self.window.destroy()
 
 
@@ -170,6 +200,7 @@ class MyWindow(Gtk.ApplicationWindow):
 		self.snippet_box = builder.get_object('snippet_box')
 		self.notes_textview = builder.get_object('notes_textview')
 		self.notes_textbuffer = self.notes_textview.get_buffer()
+		self.keywords_lbl = builder.get_object('keywords_lbl')
 		scroll = Gtk.ScrolledWindow()
 		self.editor = WebKit.WebView()
 		self.editor.set_editable(True)
@@ -290,16 +321,18 @@ class MyWindow(Gtk.ApplicationWindow):
 				self.new_snip.set_sensitive(True)
 				self.current_category = model[treeiter][0]
 				self.notes_textbuffer.set_text('')
+				self.keywords_lbl.set_text('Keywords:')
 				self.editor.load_html_string(empty_snippet, "file:///")
 				if self.new_snip.get_label() == 'Edit Snippet':
 					self.new_snip.set_label('New Snippet')
 					self.new_snip.set_icon_widget(self.snip_new_icon)
 			else:
 				self.current_category = model[treeiter].parent[0]
-				snippet = model[treeiter][0]
-				snippet_text = self.db_contents[self.current_category][snippet]['syntax_text']
-				notes = self.db_contents[self.current_category][snippet]['notes']
+				self.current_snippet = model[treeiter][0]
+				snippet_text = self.db_contents[self.current_category][self.current_snippet]['syntax_text']
+				notes = self.db_contents[self.current_category][self.current_snippet]['notes']
 				self.notes_textbuffer.set_text(notes)
+				self.keywords_lbl.set_text('Keywords: ' + self.db_contents[self.current_category][self.current_snippet]['keywords'])
 				self.editor.load_html_string(snippet_text, "file:///")
 				self.new_snip.set_label('Edit Snippet')
 				self.new_snip.set_icon_widget(self.snip_edit_icon)

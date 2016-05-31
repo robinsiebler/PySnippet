@@ -2,6 +2,7 @@
 <!-- Generated with glade 3.18.3 -->
 <interface>
   <requires lib="gtk+" version="3.12"/>
+  <object class="GtkEntryBuffer" id="keywords_buffer"/>
   <object class="GtkTextBuffer" id="notes_txtbuffer"/>
   <object class="GtkTextBuffer" id="snippet_textbuffer"/>
   <object class="GtkTextBuffer" id="snippet_textbuffer1"/>
@@ -436,6 +437,7 @@
                 <property name="tooltip_text" translatable="yes">Choose syntax highlighting to be used on the snippet</property>
                 <property name="model">syntax_liststore</property>
                 <property name="popup_fixed_width">False</property>
+                <property name="id_column">0</property>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -473,6 +475,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="margin_top">5</property>
+                <property name="buffer">keywords_buffer</property>
                 <property name="placeholder_text" translatable="yes">Enter keywords here</property>
               </object>
               <packing>
