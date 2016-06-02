@@ -39,6 +39,8 @@ body  { background: #f8f8f8; }
 
 
 class SnippetDialog():
+	"""Class to display the Create/Edit Snippet dialog and gather the data from it."""
+
 	def __init__(self, MainWindow):
 		builder = Gtk.Builder()
 		builder.add_from_file(r'ui\snippet_dlg.glade')
@@ -72,12 +74,16 @@ class SnippetDialog():
 		self.window.show()
 
 	def get_text(self, widget):
+		"""Get the text from the provided widget."""
+
 		textbuffer = widget.get_buffer()
 		startiter, enditer = textbuffer.get_bounds()
 		text = textbuffer.get_text(startiter, enditer, False)
 		return text
 
 	def get_combo_value(self):
+		"""Get the selected entry in the combobox."""
+
 		syntax = None
 		tree_iter = self.combo.get_active_iter()
 		if tree_iter != None:
@@ -87,6 +93,8 @@ class SnippetDialog():
 		return syntax
 
 	def on_btn_click(self, button):
+		"""Gather the data from the dialog."""
+
 		btn_name = Gtk.Buildable.get_name(button)
 		if btn_name == 'btn_save' and self.window.get_title() == 'Create Snippet':
 			self.name = self.txt_title.get_text()
@@ -133,6 +141,8 @@ class SnippetDialog():
 
 
 class MyWindow(Gtk.ApplicationWindow):
+	"""Main application window."""
+
 	def __init__(self, app):
 		Gtk.Window.__init__(self, title="PySnippet Manager", application=app)
 		self.set_default_size(1024, 768)
@@ -188,9 +198,11 @@ class MyWindow(Gtk.ApplicationWindow):
 		self.add(builder.get_object('grid1'))
 		self.new_cat = builder.get_object('New Category')
 		self.del_cat = builder.get_object('Delete Category')
+		self.del_cat.set_sensitive(False)
 		self.new_snip = builder.get_object('New Snippet')
 		self.new_snip.set_sensitive(False)
 		self.del_snip = builder.get_object('Delete Snippet')
+		self.del_snip.set_sensitive(False)
 		self.adv_search = builder.get_object('Advanced Search')
 		self.search = builder.get_object('Search')
 		self.snip_new_icon = builder.get_object('snippet_new')
@@ -222,6 +234,8 @@ class MyWindow(Gtk.ApplicationWindow):
 	# ---------- Callback Functions ----------
 	# callback function for new_db_action
 	def new_db_callback(self, action, parameter=None):
+		"""Display the New Database dialog and gather the desired location for the file."""
+
 		dialog = Gtk.FileChooserDialog("Please choose a name and location for the database file", self,
 		                               Gtk.FileChooserAction.SAVE,
 		                               ("Select", Gtk.ResponseType.OK,
@@ -243,50 +257,67 @@ class MyWindow(Gtk.ApplicationWindow):
 
 	# callback function for del_db_action
 	def del_db_callback(self, action, parameter=None):
+		"""Delete the specified database."""
+
 		print("\"Delete Database\" activated")
 
 	# callback function for new_cat_action
 	def new_cat_callback(self, action, parameter=None):
+		"""Create a new category."""
+
 		print("\"New Category\" activated")
 
 	# callback function for del_cat_action
 	def del_cat_callback(self, action, parameter=None):
+		"""Delete the specified category."""
+
 		print("\"Delete Category\" activated")
 
 	# callback function for new_snip_action
 	def new_snip_callback(self, action, parameter=None):
-		snippet_window = SnippetDialog(self)
+		"""Create/Edit a snippet"""
 
+		snippet_window = SnippetDialog(self)
 
 	# callback function for del_snip_action
 	def del_snip_callback(self, action, parameter=None):
+		"""Delete a snippet."""
+
 		print("\"Delete Snippet\" activated")
 
 	# callback function for advanced_search_action
 	def adv_search_callback(self, action, parameter=None):
+		"""Display the Advanced Search Dialog."""
+
 		print("\"Advanced Search\" activated")
 
 	# callback function for search_action
 	def search_callback(self, action, parameter=None):
+		"""Perform a basic search."""
+
 		print("\"Search\" activated")
 
 	# callback function for copy_action
 	def copy_callback(self, action, parameter=None):
+		"""Copy the selected snippet and/or selected text ???"""
+
 		print("\"Copy\" activated")
 
 	# callback function for paste_action
 	def paste_callback(self, action, parameter=None):
+		"""Paste the selected snippet and/or selected text ???"""
 		print("\"Paste\" activated")
 
 	# callback function for about (see the AboutDialog example)
 	def about_callback(self, action, parameter=None):
-		# a  Gtk.AboutDialog
+		"""Display the About Dialog."""
+
 		aboutdialog = Gtk.AboutDialog()
 
-		# lists of authors and documenters (will be used later)
+		# lists of authors
 		authors = ["Robin Siebler"]
 
-		# we fill in the aboutdialog
+		# fill in the aboutdialog
 		aboutdialog.set_program_name("PySnippet Manager")
 		aboutdialog.set_copyright(
 			"Copyright \xc2\xa9 2016 Robin Siebler")
@@ -294,7 +325,7 @@ class MyWindow(Gtk.ApplicationWindow):
 		aboutdialog.set_website("http://www.robinsiebler.com")
 		aboutdialog.set_website_label("My Website")
 
-		# to close the aboutdialog when "close" is clicked we connect the
+		# to close the aboutdialog when "close" is clicked, connect the
 		# "response" signal to on_close
 		aboutdialog.connect("response", self.on_close)
 		# show the aboutdialog
@@ -307,6 +338,7 @@ class MyWindow(Gtk.ApplicationWindow):
 		action.destroy()
 
 	def populate_treeview(self):
+		"""Populate the treeview with the DB Snippet Categories and Snippet Titles."""
 
 		for category in self.db_contents:
 			it = self.tree_store.append(None, [category])
@@ -315,10 +347,14 @@ class MyWindow(Gtk.ApplicationWindow):
 
 	# ---------- Event Handlers ----------
 	def on_tree_selection_changed(self, selection):
+		"""Perform various actions when a Snippet or Category is selected."""
+
 		model, treeiter = selection.get_selected()
 		if treeiter is not None:
 			if model[treeiter][0] in self.db_contents:  # it is a category
+				self.del_cat.set_sensitive(True)
 				self.new_snip.set_sensitive(True)
+				self.del_snip.set_sensitive(False)
 				self.current_category = model[treeiter][0]
 				self.notes_textbuffer.set_text('')
 				self.keywords_lbl.set_text('Keywords:')
@@ -329,6 +365,8 @@ class MyWindow(Gtk.ApplicationWindow):
 			else:
 				self.current_category = model[treeiter].parent[0]
 				self.current_snippet = model[treeiter][0]
+				self.del_cat.set_sensitive(False)
+				self.del_snip.set_sensitive(True)
 				snippet_text = self.db_contents[self.current_category][self.current_snippet]['syntax_text']
 				notes = self.db_contents[self.current_category][self.current_snippet]['notes']
 				self.notes_textbuffer.set_text(notes)
@@ -339,6 +377,7 @@ class MyWindow(Gtk.ApplicationWindow):
 
 
 class MyApplication(Gtk.Application):
+
 	def __init__(self):
 		Gtk.Application.__init__(self)
 
@@ -371,11 +410,6 @@ class MyApplication(Gtk.Application):
 		self.set_menubar(builder.get_object("menubar"))
 		self.set_app_menu(builder.get_object("appmenu"))
 
-	# callback function for new
-	def new_callback(self, action, parameter):
-		print("You clicked \"New\"")
-
 	# callback function for quit
 	def quit_callback(self, action, parameter):
-		print("You clicked \"Quit\"")
 		sys.exit()

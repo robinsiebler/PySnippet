@@ -4,8 +4,9 @@ import os
 
 from configobj import ConfigObj
 from pygments import highlight
-from pygments.lexers.python import PythonLexer
+from pygments.lexers import get_lexer_by_name
 from pygments.formatters.html import HtmlFormatter
+from pygments.util import ClassNotFound
 
 
 def get_db_file(config_file):
@@ -64,8 +65,19 @@ def get_settings(section, config_file):
 		settings = None
 	return settings
 
-def highlight_snippet(text, syntax):
 
-	if syntax == 'Python':
-		return highlight(text, PythonLexer(), HtmlFormatter(full=True))
+def highlight_snippet(text, syntax):
+	"""Get the correct lexer (based upon the provided syntax and highlight the text
+
+	":param str text:       The text to highlight
+	:return:                An HTML formatted string
+	:rtype: str
+	"""
+
+	try:
+		lexer = get_lexer_by_name(syntax)
+		return highlight(text, lexer, HtmlFormatter(full=True))
+	except ClassNotFound as e:
+		print e
+		return text
 
