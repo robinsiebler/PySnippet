@@ -81,3 +81,29 @@ def highlight_snippet(text, syntax):
 		print e
 		return text
 
+
+def update_languages():
+	"""Read the languages file and update the Snippet Dialog combobox."""
+
+	with open('languages.txt', 'r') as f:
+		languages = f.readlines()
+
+	with open('ui\snippet_dlg.glade', 'r') as f:
+		dlg = f.readlines()
+
+	data_start = dlg.index('    <data>\n')
+	data_end = dlg.index('    </data>\n')
+	del dlg[data_start + 1:data_end]
+
+	index = data_start + 1
+
+	for language in languages:
+		if language != '':
+			dlg.insert(index, '      <row>\n')
+			dlg.insert(index + 1, '        <col id="0">' + language.strip() + '</col>\n')
+			dlg.insert(index + 2, '      </row>\n')
+			index += 3
+
+	with open('ui\snippet_dlg.glade', 'w') as f:
+		f.writelines(dlg)
+

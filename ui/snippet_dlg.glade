@@ -16,16 +16,13 @@
         <col id="0">ActionScript</col>
       </row>
       <row>
-        <col id="0">ActionScript</col>
-      </row>
-      <row>
         <col id="0">Ada</col>
       </row>
       <row>
         <col id="0">ANTLR</col>
       </row>
       <row>
-        <col id="0">Apache config files</col>
+        <col id="0">Apache</col>
       </row>
       <row>
         <col id="0">AppleScript</col>
@@ -43,6 +40,9 @@
         <col id="0">Bash</col>
       </row>
       <row>
+        <col id="0">Batch</col>
+      </row>
+      <row>
         <col id="0">BBCode</col>
       </row>
       <row>
@@ -55,13 +55,16 @@
         <col id="0">BrainFuck</col>
       </row>
       <row>
-        <col id="0">C, C++</col>
+        <col id="0">C</col>
+      </row>
+      <row>
+        <col id="0">C++</col>
       </row>
       <row>
         <col id="0">C#</col>
       </row>
       <row>
-        <col id="0">Cheetah templates</col>
+        <col id="0">Cheetah</col>
       </row>
       <row>
         <col id="0">Clojure</col>
@@ -94,16 +97,16 @@
         <col id="0">Dart</col>
       </row>
       <row>
-        <col id="0">Debian control files</col>
+        <col id="0">Debian</col>
       </row>
       <row>
         <col id="0">Delphi</col>
       </row>
       <row>
-        <col id="0">Diff files</col>
+        <col id="0">Diff</col>
       </row>
       <row>
-        <col id="0">Django/Jinja templates</col>
+        <col id="0">Django</col>
       </row>
       <row>
         <col id="0">DTD</col>
@@ -112,13 +115,13 @@
         <col id="0">Dylan</col>
       </row>
       <row>
-        <col id="0">ERB (Ruby templates)</col>
+        <col id="0">ERB</col>
       </row>
       <row>
         <col id="0">Erlang</col>
       </row>
       <row>
-        <col id="0">Ezhil Ezhil - A Tamil programming language</col>
+        <col id="0">Ezhil</col>
       </row>
       <row>
         <col id="0">F#</col>
@@ -133,25 +136,25 @@
         <col id="0">Fortran</col>
       </row>
       <row>
+        <col id="0">FoxPro</col>
+      </row>
+      <row>
         <col id="0">GAP</col>
       </row>
       <row>
-        <col id="0">Genshi (the Trac template language)</col>
+        <col id="0">Genshi</col>
       </row>
       <row>
-        <col id="0">Gettext catalogs</col>
+        <col id="0">Gettext</col>
       </row>
       <row>
-        <col id="0">Gherkin (Cucumber)</col>
+        <col id="0">Gherkin</col>
       </row>
       <row>
-        <col id="0">GL shaders</col>
+        <col id="0">Gnuplot</col>
       </row>
       <row>
-        <col id="0">Gnuplot script</col>
-      </row>
-      <row>
-        <col id="0">Groff markup</col>
+        <col id="0">Groff</col>
       </row>
       <row>
         <col id="0">Groovy</col>
@@ -163,7 +166,7 @@
         <col id="0">HTML</col>
       </row>
       <row>
-        <col id="0">HTTP sessions</col>
+        <col id="0">HTTP</col>
       </row>
       <row>
         <col id="0">IDL</col>
@@ -175,7 +178,7 @@
         <col id="0">Io</col>
       </row>
       <row>
-        <col id="0">IRC logs</col>
+        <col id="0">IRC</col>
       </row>
       <row>
         <col id="0">Java</col>
@@ -184,13 +187,16 @@
         <col id="0">JavaScript</col>
       </row>
       <row>
-        <col id="0">JSP (Java Server Pages)</col>
+        <col id="0">Jinja</col>
+      </row>
+      <row>
+        <col id="0">JSP</col>
       </row>
       <row>
         <col id="0">Lasso</col>
       </row>
       <row>
-        <col id="0">Lighttpd config files</col>
+        <col id="0">Lighttpd</col>
       </row>
       <row>
         <col id="0">Lisp</col>
@@ -208,7 +214,7 @@
         <col id="0">Makefiles</col>
       </row>
       <row>
-        <col id="0">Mako (the Myghty successor)</col>
+        <col id="0">Mako</col>
       </row>
       <row>
         <col id="0">Matlab</col>
@@ -223,13 +229,13 @@
         <col id="0">Modula-2</col>
       </row>
       <row>
-        <col id="0">MoinMoin/Trac Wiki markup</col>
+        <col id="0">Moin</col>
       </row>
       <row>
         <col id="0">MuPad</col>
       </row>
       <row>
-        <col id="0">Myghty (the HTML::Mason based framework)</col>
+        <col id="0">Myghty</col>
       </row>
       <row>
         <col id="0">MySQL</col>
@@ -238,7 +244,7 @@
         <col id="0">Nemerle</col>
       </row>
       <row>
-        <col id="0">Nginx config files</col>
+        <col id="0">Nginx</col>
       </row>
       <row>
         <col id="0">Nimrod</col>
@@ -265,10 +271,7 @@
         <col id="0">PostScript</col>
       </row>
       <row>
-        <col id="0">POV-Ray scenes</col>
-      </row>
-      <row>
-        <col id="0">PovRay</col>
+        <col id="0">POV</col>
       </row>
       <row>
         <col id="0">PowerShell</col>
@@ -278,6 +281,9 @@
       </row>
       <row>
         <col id="0">Python</col>
+      </row>
+      <row>
+        <col id="0">R</col>
       </row>
       <row>
         <col id="0">Ragel</col>
@@ -295,10 +301,10 @@
         <col id="0">ReST</col>
       </row>
       <row>
-        <col id="0">Robot Framework</col>
+        <col id="0">RobotFramework</col>
       </row>
       <row>
-        <col id="0">RPM spec files</col>
+        <col id="0">RPM</col>
       </row>
       <row>
         <col id="0">Ruby</col>
@@ -307,7 +313,10 @@
         <col id="0">Rust</col>
       </row>
       <row>
-        <col id="0">S, S-Plus, R</col>
+        <col id="0">S</col>
+      </row>
+      <row>
+        <col id="0">SPlus</col>
       </row>
       <row>
         <col id="0">Scala</col>
@@ -322,16 +331,16 @@
         <col id="0">Smalltalk</col>
       </row>
       <row>
-        <col id="0">Smarty templates (PHP templates)</col>
+        <col id="0">Smarty</col>
       </row>
       <row>
         <col id="0">SNOBOL</col>
       </row>
       <row>
-        <col id="0">SQL, SQLite</col>
+        <col id="0">SQL</col>
       </row>
       <row>
-        <col id="0">Squid config files</col>
+        <col id="0">Squid</col>
       </row>
       <row>
         <col id="0">Tcl</col>
@@ -355,16 +364,10 @@
         <col id="0">VHDL</col>
       </row>
       <row>
-        <col id="0">Vim Script</col>
+        <col id="0">Vim</col>
       </row>
       <row>
-        <col id="0">Visual Basic.Net</col>
-      </row>
-      <row>
-        <col id="0">Visual FoxPro</col>
-      </row>
-      <row>
-        <col id="0">Windows Batch files</col>
+        <col id="0">VB.NET</col>
       </row>
       <row>
         <col id="0">XML</col>

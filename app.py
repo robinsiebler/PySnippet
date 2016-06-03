@@ -1,7 +1,6 @@
 # TODO: Create the following dialogs: Advanced Search, Create/Delete Category
 # TODO: Write code for menu items/toolbar buttons
 # TODO: Write code to load/read settings
-# TODO: Save treeview expansion and selected object so that it can be restored after a change to the DB
 # TODO: Add logging
 
 
@@ -113,9 +112,6 @@ class SnippetDialog():
 			               }
 
 			db_func.add_data(new_snippet)
-			self.mw.db_contents = db_func.read_db(self.mw.db_file)
-			self.mw.tree_store.clear()
-			self.mw.populate_treeview()
 		elif btn_name == 'btn_save' and self.window.get_title() == 'Edit Snippet':
 			self.name = self.txt_title.get_text()
 			self.syntax = self.get_combo_value()
@@ -133,10 +129,15 @@ class SnippetDialog():
 			           }
 			db_func.update_snippet(self.mw.db_contents[self.mw.current_category][self.mw.current_snippet]['name'],
 			                       snippet)
-			self.mw.db_contents = db_func.read_db(self.mw.db_file)
-			self.mw.tree_store.clear()
-			self.mw.populate_treeview()
+		elif btn_name == 'btn_cancel':
+			self.window.destroy()
+			return
 
+		self.mw.db_contents = db_func.read_db(self.mw.db_file)
+		self.mw.tree_store.clear()
+		self.mw.populate_treeview()
+		for path in self.mw.expanded_rows:
+			self.mw.tree.expand_to_path(path)
 		self.window.destroy()
 
 
@@ -148,7 +149,9 @@ class MyWindow(Gtk.ApplicationWindow):
 		self.set_default_size(1024, 768)
 		self.db_file = utils.get_db_file(config_file)
 		self.db_contents = db_func.read_db(self.db_file)
+		utils.update_languages()
 		self.current_category = None
+		self.expanded_rows = []
 
 		# action without a state created (name, parameter type)
 		new_db_action = Gio.SimpleAction.new("new_db", None)
@@ -346,6 +349,18 @@ class MyWindow(Gtk.ApplicationWindow):
 				self.tree_store.append(it, [item])
 
 	# ---------- Event Handlers ----------
+	def on_row_collapsed(self, tree_view, tree_iter, path):
+		"""Remove row from the list of rows to expand when the treeview is re-created."""
+
+		if path in self.expanded_rows:
+			self.expanded_rows.remove(path)
+
+	def on_row_expanded(self, tree_view, tree_iter, path):
+		"""Add row to the list of rows to expand when the treeview is re-created."""
+
+		if path not in self.expanded_rows:
+			self.expanded_rows.append(path)
+
 	def on_tree_selection_changed(self, selection):
 		"""Perform various actions when a Snippet or Category is selected."""
 
