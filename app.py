@@ -1,8 +1,9 @@
 # TODO: Create the following dialogs: Advanced Search, Create/Delete Category
-# TODO: Write code for menu items/toolbar buttons
+# TODO: Write code for menu items/toolbar buttons - don't forget the menu items!
 # TODO: Write code to load/read settings
 # TODO: Add logging
 
+# TODO: BUG: Key Error when changing Snippet Name during editing!
 
 import database_functions as db_func
 import gi
@@ -17,22 +18,21 @@ gi.require_version('WebKit', '3.0')
 from gi.repository import Gio, Gtk, WebKit
 
 config_file = os.path.join(os.getcwd(), 'psm.ini')
-database = utils.get_db_file(config_file)
 
 empty_snippet = """
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
    "http://www.w3.org/TR/html4/strict.dtd">
 <html>
-<head>
-  <meta http-equiv="content-type" content="text/html; charset=None">
-  <style type="text/css">
-td.linenos { background-color: #f0f0f0; padding-right: 10px; }
-span.lineno { background-color: #f0f0f0; padding: 0 5px 0 5px; }
-pre { line-height: 125%; }
-body .hll { background-color: #ffffcc }
-body  { background: #f8f8f8; }
-  </style>
-</head>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=None">
+	        <style type="text/css">
+				td.linenos { background-color: #f0f0f0; padding-right: 10px; }
+				span.lineno { background-color: #f0f0f0; padding: 0 5px 0 5px; }
+				pre { line-height: 125%; }
+				body .hll { background-color: #ffffcc }
+				body  { background: #f8f8f8; }
+		    </style>
+	</head>
 </html>
 """
 
@@ -85,7 +85,7 @@ class SnippetDialog():
 
 		syntax = None
 		tree_iter = self.combo.get_active_iter()
-		if tree_iter != None:
+		if tree_iter is not None:
 			model = self.combo.get_model()
 			syntax = model[tree_iter][0]
 
@@ -138,6 +138,10 @@ class SnippetDialog():
 		self.mw.populate_treeview()
 		for path in self.mw.expanded_rows:
 			self.mw.tree.expand_to_path(path)
+
+		# select the previously selected entry
+		self.mw.tree.row_activated(self.mw.current_selection, Gtk.TreeViewColumn(None))
+		self.mw.tree.set_cursor(self.mw.current_selection)
 		self.window.destroy()
 
 
@@ -151,6 +155,8 @@ class MyWindow(Gtk.ApplicationWindow):
 		self.db_contents = db_func.read_db(self.db_file)
 		utils.update_languages()
 		self.current_category = None
+		self.current_selection = None
+		self.current_snippet = None
 		self.expanded_rows = []
 
 		# action without a state created (name, parameter type)
@@ -280,6 +286,9 @@ class MyWindow(Gtk.ApplicationWindow):
 	def new_snip_callback(self, action, parameter=None):
 		"""Create/Edit a snippet"""
 
+		# save the currently selected entry so it can be selected again after the treeview reloads
+		if self.new_snip.get_label() == 'Edit Snippet':
+			self.current_selection = self.tree.get_cursor()[0]
 		snippet_window = SnippetDialog(self)
 
 	# callback function for del_snip_action
@@ -376,6 +385,7 @@ class MyWindow(Gtk.ApplicationWindow):
 				self.editor.load_html_string(empty_snippet, "file:///")
 				if self.new_snip.get_label() == 'Edit Snippet':
 					self.new_snip.set_label('New Snippet')
+					self.new_snip.set_tooltip_text('Add a New Snippet')
 					self.new_snip.set_icon_widget(self.snip_new_icon)
 			else:
 				self.current_category = model[treeiter].parent[0]
@@ -388,6 +398,7 @@ class MyWindow(Gtk.ApplicationWindow):
 				self.keywords_lbl.set_text('Keywords: ' + self.db_contents[self.current_category][self.current_snippet]['keywords'])
 				self.editor.load_html_string(snippet_text, "file:///")
 				self.new_snip.set_label('Edit Snippet')
+				self.new_snip.set_tooltip_text('Edit Selected Snippet')
 				self.new_snip.set_icon_widget(self.snip_edit_icon)
 
 
